@@ -1,6 +1,8 @@
 "use-strict";
 
-class User {
+////////////// Desafío -> Clases //////////////
+
+/* class User {
   constructor(name, lastName, books, pets) {
     this.name = name;
     this.lastName = lastName;
@@ -44,4 +46,4 @@ user1.addBook("Harry Potter", "J. K. Rowling");
 user1.addBook("Las Crónicas de Narnia", "C.S. Lewis");
 user1.getBookNames();
 
-console.log(user1);
+console.log(user1); */
