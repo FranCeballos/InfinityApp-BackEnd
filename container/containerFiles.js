@@ -5,24 +5,28 @@ class Files {
     this.fs = require("fs").promises;
   }
 
-  async save(product) {
+  async create(product) {
     this.products = await this.read();
 
-    product.id = this.products.length + 1;
+    const arrayOfIds = this.products.map((product) => product.id);
+    const maxId = Math.max(...arrayOfIds);
+    product.id = maxId + 1;
     this.products.push(product);
 
     try {
       await this.fs.writeFile(
         this.path,
-        JSON.stringify(products, null, 2),
+        JSON.stringify(this.products, null, 2),
         "utf-8"
       );
       console.log(`Product saved.`);
-      return this.products[-1].id;
+      console.log(this.products);
+      return product;
     } catch (err) {
       console.error(`Error on save: ${err}`);
     }
   }
+
   async readById(id) {
     try {
       const productsArr = await this.read();
@@ -42,7 +46,33 @@ class Files {
           return data;
         }
       );
-      return JSON.parse(productsStr);
+      const productsArr = JSON.parse(productsStr);
+      this.products = productsArr;
+      return productsArr;
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
+  async updateById(id, obj) {
+    try {
+      await this.read();
+      const foundProduct = this.products.find((product) => product.id === id);
+
+      if (foundProduct) {
+        const filteredProducts = this.products.filter(
+          (product) => product.id !== id
+        );
+
+        const newProduct = { ...obj, id };
+        this.products = [...filteredProducts, newProduct];
+        await this.fs.writeFile(
+          this.path,
+          JSON.stringify(this.products, null, 2),
+          "utf-8"
+        );
+        return newProduct;
+      }
     } catch (error) {
       console.log(error);
     }
@@ -50,10 +80,11 @@ class Files {
 
   async deleteById(id) {
     try {
-      const productsStr = await fs.readFile(this.path, "utf-8");
-      const productsArr = JSON.parse(productsStr);
+      const productsArr = await this.read();
       const restProducts = productsArr.filter((product) => product.id !== id);
-      fs.writeFile(this.path, JSON.stringify(restProducts), "utf-8");
+      this.fs.writeFile(this.path, JSON.stringify(restProducts), "utf-8");
+      this.products = restProducts;
+      console.log("Deleted by ID", this.products);
     } catch (error) {
       console.log(error);
     }
@@ -62,6 +93,8 @@ class Files {
   async deleteAll() {
     try {
       await this.fs.unlink(this.path);
+      this.products = [];
+      console.log("Deleted All", this.products);
     } catch (error) {
       console.error(error);
     }
