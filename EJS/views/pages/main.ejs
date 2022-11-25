@@ -1,0 +1,56 @@
+<html lang="es">
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, viewport-fit=cover"
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Montserrat:wght@100;200;300;400;500;600;700;800;900&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" type="text/css" href="./style.css" />
+    <title>View Products</title>
+  </head>
+
+  <body>
+    <div class="listBox">
+      <h1 class="listTitle whiteColor">Movies And Series</h1>
+      <a class="backButton" href="/">
+        <p>Add product</p>
+      </a>
+      <% if (list) { %>
+      <div class="listGrid">
+        <% list.forEach((item)=> { %>
+        <div class="listItem">
+          <div class="itemDesImgBox">
+            <img
+              class="itemDesImg"
+              src="<%= item.img %>"
+              alt="<%= item.name %>"
+            />
+          </div>
+          <div class="itemDesBox">
+            <h3 class="whiteColor"><%= item.name %></h3>
+            <div class="itemDesBox2">
+              <p class="itemDesText whiteColor"><%= item.rating %></p>
+              <p class="itemDesText whiteColor"><%= item.duration %></p>
+              <p class="itemDesText whiteColor"><%= item.year %></p>
+            </div>
+            <div class="itemDesBox2">
+              <p class="priceText whiteColor">$<%= item.price %></p>
+              <p class="itemDesText whiteColor"><%= item.strService %></p>
+            </div>
+          </div>
+        </div>
+        <% }) %>
+      </div>
+      <% } else {%>
+      <h4 class="whiteColor">No products found.</h4>
+      <% } %>
+    </div>
+  </body>
+</html>

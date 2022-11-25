@@ -1,0 +1,72 @@
+[
+  {
+    "name": "Encanto",
+    "rating": "PG",
+    "duration": "1h 49min",
+    "year": 2021,
+    "strService": "Disney+",
+    "price": 12,
+    "img": "https://media.glamour.mx/photos/61a5602b72142b6f063c09c8/3:2/w_2400,h_1600,c_limit/encantoposter.jpg",
+    "id": 1
+  },
+  {
+    "name": "Lightyear",
+    "rating": "PG",
+    "duration": "1h 45min",
+    "year": 2022,
+    "strService": "Disney+",
+    "price": 12,
+    "img": "https://media.revistagq.com/photos/62b02a11c41190db0294e43b/1:1/w_1496,h_1496,c_limit/Captura%20de%20pantalla%202022-06-20%20a%20las%2010.04.17.png",
+    "id": 2
+  },
+  {
+    "name": "Soul",
+    "rating": "G",
+    "duration": "1h 40min",
+    "year": 2020,
+    "strService": "Disney+",
+    "price": 12,
+    "img": "https://media.glamour.mx/photos/61905ed7a6e030d6480f6a85/master/w_1600%2Cc_limit/245897.jpeg",
+    "id": 3
+  },
+  {
+    "name": "Coco",
+    "rating": "G",
+    "duration": "1h 45min",
+    "year": 2017,
+    "strService": "Disney+",
+    "price": 12,
+    "img": "https://www.eleconomista.com.mx/__export/1510364639546/sites/eleconomista/img/2017/11/10/coco-1680x1050-miguel-dante-hector-pixar-animation-2017-hd-4k-10160_1.jpg_1902800913.jpg",
+    "id": 4
+  },
+  {
+    "name": "The Last Of Us",
+    "rating": "R",
+    "duration": "5h 3min",
+    "year": "2023",
+    "strService": "HBO Max",
+    "price": "19",
+    "img": "https://static.hbo.com/2022-11/the-last-of-us-tease-ka-1920_0.jpg",
+    "id": 5
+  },
+  {
+    "name": "Interestelar",
+    "rating": "PG-13",
+    "duration": "2h 49min",
+    "year": "2014",
+    "strService": "Amazon",
+    "price": "11",
+    "img": "https://cloudfront-us-east-1.images.arcpublishing.com/semana/D6COKJW4HJCKVFR6UJ6M7VOZNE.jpg",
+    "id": 6
+  },
+  {
+    "name": "Black Panther",
+    "rating": "PG-13",
+    "duration": "2h 15min",
+    "year": "2018",
+    "strService": "Disney+",
+    "price": "13",
+    "img": "https://cdn.britannica.com/36/198336-050-A9B8AA86/Chadwick-Boseman-Tchalla-Black-Panther-Black.jpg",
+    "id": 7
+  }
+]

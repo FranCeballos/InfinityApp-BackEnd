@@ -1,0 +1,1 @@
+Prefiero "ejs" porque da la posibilidad de escribir JavaScript y HTML con la menor variación de sintaxis entre las tres. 

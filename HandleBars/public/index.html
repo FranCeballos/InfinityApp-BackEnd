@@ -4,19 +4,20 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="./styles.css" />
+    <link rel="stylesheet" href="./css/styles.css" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
       href="https://fonts.googleapis.com/css2?family=Montserrat:wght@100;200;300;400;500;600;700;800;900&display=swap"
       rel="stylesheet"
     />
-    <title>Desafío "API RESTful"</title>
+    <title>Add Product</title>
   </head>
   <body class="box">
+    <a href="/products" class="backButton"><p>See all products</p></a>
     <div class="card">
-      <h1 class="formTitle">Sumar Nuevo Producto</h1>
-      <form action="/api/products" method="post" class="formBox">
+      <h1 class="formTitle">Add new product</h1>
+      <form action="/products" method="post" class="formBox">
         <!-- Name -->
         <div>
           <label for="name">Name:</label>
@@ -123,7 +124,7 @@
         </div>
 
         <!-- Submit Button -->
-        <button type="submit" class="formButtonStyle">Subir Producto</button>
+        <button type="submit" class="formButtonStyle">Add product</button>
       </form>
     </div>
 
