@@ -1,12 +1,18 @@
 const express = require("express");
+const { Server: HttpServer } = require("http");
+const { Server: IOServer } = require("socket.io");
 const handlebars = require("express-handlebars");
 const bodyParser = require("body-parser");
-
 const Product = require("../api/classNewProduct");
 const Files = require("../api/containerFiles");
 const movies = new Files("./src/products.json");
+const messages = new Files("./src/messages.json");
 
 const app = express();
+
+//socket configuration
+const httpServer = new HttpServer(app);
+const io = new IOServer(httpServer);
 
 //Set engine
 app.engine(
@@ -50,8 +56,28 @@ app.get("/products", async (req, res) => {
 });
 
 //--------------------------------------------
+
 const PORT = 8070;
-const server = app.listen(PORT, () => {
+const server = httpServer.listen(PORT, () => {
   console.log(`Servidor http escuchando en el puerto ${server.address().port}`);
 });
+
 server.on("error", (error) => console.log(`Error en servidor ${error}`));
+
+io.on("connection", async (socket) => {
+  console.log("User connected");
+
+  socket.emit("messages", await messages.read());
+
+  socket.on("message", async (data) => {
+    const messageData = { socketid: socket.id, message: data };
+    messages.create(messageData);
+    io.sockets.emit("messages", await messages.read());
+  });
+
+  socket.emit("products", await movies.read());
+
+  socket.on("disconnect", () => {
+    console.log("User disconnected");
+  });
+});

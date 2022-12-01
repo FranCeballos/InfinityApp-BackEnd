@@ -15,6 +15,8 @@
   </head>
   <body class="box">
     <a href="/products" class="backButton"><p>See all products</p></a>
+
+    <!-- Add new product form -->
     <div class="card">
       <h1 class="formTitle">Add new product</h1>
       <form action="/products" method="post" class="formBox">
@@ -127,7 +129,38 @@
         <button type="submit" class="formButtonStyle">Add product</button>
       </form>
     </div>
-
+    <div class="card">
+      <h1 class="formTitle">Catalog</h1>
+      <table class="tableItems"></table>
+    </div>
+    <div class="card">
+      <h1 class="formTitle">Chat</h1>
+      <div class="chatMessagesBox"></div>
+      <form class="chatForm">
+        <div class="chatInputBox">
+          <input
+            id="chat"
+            name="chat"
+            class="formInputStyle chatInputStyle"
+            type="text"
+            placeholder="Message"
+            required
+          />
+          <button type="button" class="sendMessageButton formButtonStyle">
+            Send >
+          </button>
+        </div>
+        <input
+          id="email"
+          name="email"
+          class="formInputStyle chatInputStyle"
+          type="email"
+          placeholder="Email"
+          required
+        />
+      </form>
+    </div>
+    <script src="/socket.io/socket.io.js"></script>
     <script src="./main.js"></script>
   </body>
 </html>

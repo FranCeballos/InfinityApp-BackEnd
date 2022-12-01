@@ -8,9 +8,11 @@ class Files {
   async create(product) {
     this.products = await this.read();
 
-    const arrayOfIds = this.products.map((product) => product.id);
-    const maxId = Math.max(...arrayOfIds);
-    product.id = maxId + 1;
+    const arrayOfIds = this.products?.map((product) => product.id);
+    if (arrayOfIds) {
+      const maxId = Math.max(...arrayOfIds);
+      product.id = maxId + 1;
+    }
     this.products.push(product);
 
     try {
