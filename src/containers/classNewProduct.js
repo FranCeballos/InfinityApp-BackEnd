@@ -5,9 +5,9 @@ class Product {
     this.name = name;
     this.rating = rating;
     this.duration = `${hours}h ${minutes}min`;
-    this.year = year;
+    this.year = parseInt(year);
     this.strService = strService;
-    this.price = price;
+    this.price = parseInt(price);
     this.img = img;
   }
 }
