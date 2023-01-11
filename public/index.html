@@ -15,6 +15,7 @@
   </head>
   <body class="box">
     <a href="/products" class="backButton"><p>See all products</p></a>
+    <p class="serverText"></p>
 
     <!-- Add new product form -->
     <div class="card">
@@ -126,14 +127,20 @@
         </div>
 
         <!-- Submit Button -->
-        <button type="submit" class="formButtonStyle">Add product</button>
+        <button type="submit" class="addProductButton formButtonStyle">
+          Add product
+        </button>
       </form>
     </div>
+
+    <!-- Catalog -->
     <div class="card">
       <h1 class="formTitle">Catalog</h1>
       <table class="tableItems"></table>
     </div>
-    <div class="card">
+
+    <!-- Chat -->
+    <!-- <div class="card">
       <h1 class="formTitle">Chat</h1>
       <div class="chatMessagesBox"></div>
       <form class="chatForm">
@@ -159,7 +166,7 @@
           required
         />
       </form>
-    </div>
+    </div> -->
     <script src="/socket.io/socket.io.js"></script>
     <script src="./main.js"></script>
   </body>

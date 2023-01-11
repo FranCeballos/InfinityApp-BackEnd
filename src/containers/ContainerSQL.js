@@ -1,4 +1,6 @@
-const knex = require("knex");
+// MariaDb and SQLite3 not implemented yet.
+
+import knex from "knex";
 
 class ContainerSQL {
   constructor(config, table) {
@@ -36,4 +38,4 @@ class ContainerSQL {
   }
 }
 
-module.exports = ContainerSQL;
+export default ContainerSQL;

@@ -1,13 +1,11 @@
-const knex = require("knex");
-const config = require("../config.js");
+import knex from "knex";
+import config from "../src/config.js";
 
 const knexClientMariaDb = knex(config.mariaDb);
-const knexClientSQLite3 = knex(config.sqlite3);
 
 (async () => {
   try {
     await knexClientMariaDb.schema.dropTableIfExists("products");
-    await knexClientSQLite3.schema.dropTableIfExists("messages");
 
     await knexClientMariaDb.schema.createTable("products", (table) => {
       table.increments("id").primary();
@@ -19,15 +17,9 @@ const knexClientSQLite3 = knex(config.sqlite3);
       table.integer("price").notNullable();
       table.string("img").notNullable();
     });
-
-    await knexClientSQLite3.schema.createTable("messages", (table) => {
-      table.string("socketid").notNullable();
-      table.json("message").notNullable();
-    });
   } catch (err) {
     console.log(err);
   } finally {
     knexClientMariaDb.destroy();
-    knexClientSQLite3.destroy();
   }
 })();

@@ -25,6 +25,28 @@ input {
   padding: 50px;
 }
 
+.backButton {
+  color: black;
+  font-weight: 600;
+  background-color: rgb(237, 237, 237);
+  position: absolute;
+  left: 50px;
+  top: 53px;
+  text-decoration: none;
+  padding: 10px 20px;
+  border-radius: 10px;
+}
+
+.serverText {
+  color: white;
+  position: absolute;
+  top: 55px;
+  right: 50px;
+  padding: 10px 15px;
+  border: 1px solid white;
+  border-radius: 20px;
+}
+
 .card {
   background-color: rgb(211, 211, 211);
   padding: 50px;
@@ -72,18 +94,6 @@ input {
   border: 0px;
   border-radius: 20px;
   cursor: pointer;
-}
-
-.backButton {
-  color: black;
-  font-weight: 600;
-  background-color: rgb(237, 237, 237);
-  position: absolute;
-  left: 50px;
-  top: 53px;
-  text-decoration: none;
-  padding: 10px 20px;
-  border-radius: 10px;
 }
 
 .tableItems {

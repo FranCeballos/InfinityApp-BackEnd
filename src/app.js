@@ -1,22 +1,31 @@
-const express = require("express");
-const { Server: HttpServer } = require("http");
-const { Server: IOServer } = require("socket.io");
-const handlebars = require("express-handlebars");
-const bodyParser = require("body-parser");
-const Product = require("./containers/classNewProduct");
+import express from "express";
+import { Server as HttpServer } from "http";
+import { Server as IOServer } from "socket.io";
+import { server as serverInfo } from "./daos/index.js";
+import { dirname } from "path";
+import { fileURLToPath } from "url";
 
-const ContainerSQL = require("./containers/ContainerSQL.js");
+import handlebars from "express-handlebars";
+import bodyParser from "body-parser";
 
-const config = require("./config.js");
+import {
+  productsDao as productsApi,
+  cartsDao as cartsApi,
+} from "./daos/index.js";
+
+import Product from "./utils/classNewProduct.js";
+
+// const ContainerSQL = require("./containers/ContainerSQL.js");
 
 const app = express();
+const __dirname = dirname(fileURLToPath(import.meta.url));
 
 //socket and api configuration
 const httpServer = new HttpServer(app);
 const io = new IOServer(httpServer);
 
-const productsApi = new ContainerSQL(config.mariaDb, "products");
-const messagesApi = new ContainerSQL(config.sqlite3, "messages");
+// const productsApi = new ContainerSQL(config.mariaDb, "products");
+// const messagesApi = new ContainerSQL(config.sqlite3, "messages");
 
 //Set engine
 app.engine(
@@ -50,14 +59,13 @@ app.post("/products", async (req, res) => {
     info.price,
     info.img
   );
-  console.log(newProduct);
   await productsApi.create(newProduct);
   res.redirect("/");
 });
 
-app.get("/products", async (req, res) => {
-  const products = await productsApi.read();
-  console.log(products);
+app.get("/products", async (_, res) => {
+  const products = await productsApi.readAll();
+  //console.log(`Fetched data: ${products}`);
   res.render("main", { list: products });
 });
 
@@ -72,16 +80,19 @@ server.on("error", (error) => console.log(`Error en servidor ${error}`));
 
 io.on("connection", async (socket) => {
   console.log("User connected");
+  // console.log(await productsApi.readAll());
 
-  socket.emit("messages", await messagesApi.read());
+  // socket.emit("messages", await messagesApi.read());
 
-  socket.on("message", async (data) => {
-    const messageData = { socketid: socket.id, message: data };
-    messagesApi.create(messageData);
-    io.sockets.emit("messages", await messagesApi.read());
-  });
+  // socket.on("message", async (data) => {
+  //   const messageData = { socketid: socket.id, message: data };
+  //   messagesApi.create(messageData);
+  //   io.sockets.emit("messages", await messagesApi.read());
+  // });
 
-  socket.emit("products", await productsApi.read());
+  socket.emit("products", await productsApi.readAll());
+
+  socket.emit("serverInfo", serverInfo);
 
   socket.on("disconnect", () => {
     console.log("User disconnected");
