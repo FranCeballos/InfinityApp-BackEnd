@@ -1,0 +1,22 @@
+{
+  "entities": {
+    "messages": {
+      "undefined": {
+        "0": {},
+        "1": {
+          "author": {
+            "id": "ceballos@gmail.com",
+            "name": "",
+            "lastname": "Ceballos",
+            "age": "22",
+            "username": "sdsd",
+            "avatar": "sdsd"
+          },
+          "text": "hello",
+          "date": "[19/01/2023 19:53:45]",
+          "id": null
+        }
+      }
+    }
+  }
+}

@@ -1,21 +1,17 @@
 import express from "express";
 import { Server as HttpServer } from "http";
 import { Server as IOServer } from "socket.io";
-import { server as serverInfo } from "./daos/index.js";
+import { faker } from "@faker-js/faker";
+import handlebars from "express-handlebars";
+import bodyParser from "body-parser";
+import Product from "./containers/classNewProduct.js";
+import ContainerFiles from "./containers/ContainerFiles.js";
+import ContainerFilesMsg from "./containers/ContainerFilesMessages.js";
 import { dirname } from "path";
 import { fileURLToPath } from "url";
 
-import handlebars from "express-handlebars";
-import bodyParser from "body-parser";
-
-import {
-  productsDao as productsApi,
-  cartsDao as cartsApi,
-} from "./daos/index.js";
-
-import Product from "./utils/classNewProduct.js";
-
-// const ContainerSQL = require("./containers/ContainerSQL.js");
+const productsApi = new ContainerFiles("./DB/products.json");
+const messagesApi = new ContainerFilesMsg("./DB/messages.json");
 
 const app = express();
 const __dirname = dirname(fileURLToPath(import.meta.url));
@@ -23,9 +19,6 @@ const __dirname = dirname(fileURLToPath(import.meta.url));
 //socket and api configuration
 const httpServer = new HttpServer(app);
 const io = new IOServer(httpServer);
-
-// const productsApi = new ContainerSQL(config.mariaDb, "products");
-// const messagesApi = new ContainerSQL(config.sqlite3, "messages");
 
 //Set engine
 app.engine(
@@ -41,6 +34,7 @@ app.engine(
 //middleware
 app.set("view engine", "hbs");
 app.set("views", "./views");
+app.set("view options", { layout: "productTest" });
 app.use(express.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static("public"));
@@ -59,16 +53,31 @@ app.post("/products", async (req, res) => {
     info.price,
     info.img
   );
+  console.log(newProduct);
   await productsApi.create(newProduct);
   res.redirect("/");
 });
 
-app.get("/products", async (_, res) => {
+app.get("/products", async (req, res) => {
   const products = await productsApi.readAll();
-  //console.log(`Fetched data: ${products}`);
+  console.log(products);
   res.render("main", { list: products });
 });
 
+app.get("/products-test", async (req, res) => {
+  const products = [];
+  for (let i = 1; i <= 5; i++)
+    products.push({
+      name: faker.commerce.product(),
+      rating: "PG",
+      duration: `${faker.random.numeric(3)}min`,
+      year: faker.datatype.datetime().getFullYear(),
+      strService: faker.company.name(),
+      price: faker.commerce.price(1, 50),
+      img: faker.image.abstract(),
+    });
+  res.render("main", { list: products });
+});
 //--------------------------------------------
 
 const PORT = 8070;
@@ -80,19 +89,16 @@ server.on("error", (error) => console.log(`Error en servidor ${error}`));
 
 io.on("connection", async (socket) => {
   console.log("User connected");
-  // console.log(await productsApi.readAll());
 
-  // socket.emit("messages", await messagesApi.read());
+  socket.emit("messages", await messagesApi.readAll());
 
-  // socket.on("message", async (data) => {
-  //   const messageData = { socketid: socket.id, message: data };
-  //   messagesApi.create(messageData);
-  //   io.sockets.emit("messages", await messagesApi.read());
-  // });
+  socket.on("message", async (data) => {
+    console.log("Recieved msg:,", data);
+    await messagesApi.create(data);
+    io.sockets.emit("messages", await messagesApi.readAll());
+  });
 
   socket.emit("products", await productsApi.readAll());
-
-  socket.emit("serverInfo", serverInfo);
 
   socket.on("disconnect", () => {
     console.log("User disconnected");

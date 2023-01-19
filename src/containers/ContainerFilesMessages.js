@@ -1,6 +1,13 @@
 import fs from "fs";
+import { normalize, denormalize, schema } from "normalizr";
 
 class ContainerFiles {
+  authorSchema = new schema.Entity("authors");
+  messageSchema = new schema.Entity("messages", {
+    author: [this.authorSchema],
+  });
+  entities;
+
   constructor(path) {
     this.path = path;
     this.products = [];
@@ -10,21 +17,17 @@ class ContainerFiles {
   async create(product) {
     try {
       product.id = 1;
-      this.products = await this.readAll();
-
+      await this.readAll();
       const arrayOfIds = this.products?.map((product) => product.id);
-      console.log(arrayOfIds.length);
-
       if (arrayOfIds.length) {
         const maxId = Math.max(...arrayOfIds);
         product.id = maxId + 1;
       }
-
-      this.products.push(product);
+      this.products.messages.push(product);
 
       await this.fs.writeFile(
         this.path,
-        JSON.stringify(this.products, null, 2),
+        JSON.stringify(normalize(product, this.messageSchema), null, 2),
         "utf-8"
       );
       console.log(`Product saved. ${this.products}`);
@@ -53,8 +56,16 @@ class ContainerFiles {
           return data;
         }
       );
+      console.log("readAll raw:", productsStr);
       const productsArr = JSON.parse(productsStr);
-      this.products = productsArr;
+      this.products = [
+        denormalize(
+          productsArr.result,
+          this.messageSchema,
+          this.products.entities
+        ),
+      ];
+      console.log("after denormalized", this.products);
       return productsArr;
     } catch (error) {
       console.log(error);
@@ -105,6 +116,14 @@ class ContainerFiles {
     } catch (error) {
       console.error(error);
     }
+  }
+
+  normalizeData(data) {
+    return normalize(data, messageSchema);
+  }
+
+  denormalizeData(data) {
+    return denormalize(data.result, messageSchema, entities);
   }
 }
 

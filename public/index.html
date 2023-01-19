@@ -11,11 +11,14 @@
       href="https://fonts.googleapis.com/css2?family=Montserrat:wght@100;200;300;400;500;600;700;800;900&display=swap"
       rel="stylesheet"
     />
+    <script
+      href="https://cdn.jsdelivr.net/npm/normalizr@3.6.1/dist/normalizr.browser.min.js
+    "
+    ></script>
     <title>Add Product</title>
   </head>
   <body class="box">
     <a href="/products" class="backButton"><p>See all products</p></a>
-    <p class="serverText"></p>
 
     <!-- Add new product form -->
     <div class="card">
@@ -127,20 +130,14 @@
         </div>
 
         <!-- Submit Button -->
-        <button type="submit" class="addProductButton formButtonStyle">
-          Add product
-        </button>
+        <button type="submit" class="formButtonStyle">Add product</button>
       </form>
     </div>
-
-    <!-- Catalog -->
     <div class="card">
       <h1 class="formTitle">Catalog</h1>
       <table class="tableItems"></table>
     </div>
-
-    <!-- Chat -->
-    <!-- <div class="card">
+    <div class="card">
       <h1 class="formTitle">Chat</h1>
       <div class="chatMessagesBox"></div>
       <form class="chatForm">
@@ -165,9 +162,49 @@
           placeholder="Email"
           required
         />
+        <input
+          id="name"
+          name="name"
+          class="formInputStyle chatInputStyle"
+          type="text"
+          placeholder="Name"
+          required
+        />
+        <input
+          id="lastname"
+          name="lastname"
+          class="formInputStyle chatInputStyle"
+          type="text"
+          placeholder="Lastname"
+          required
+        />
+        <input
+          id="age"
+          name="age"
+          class="formInputStyle chatInputStyle"
+          type="number"
+          placeholder="Age"
+          required
+        />
+        <input
+          id="username"
+          name="username"
+          class="formInputStyle chatInputStyle"
+          type="text"
+          placeholder="Username"
+          required
+        />
+        <input
+          id="avatar"
+          name="avatar"
+          class="formInputStyle chatInputStyle"
+          type="text"
+          placeholder="Avatar"
+          required
+        />
       </form>
-    </div> -->
+    </div>
     <script src="/socket.io/socket.io.js"></script>
-    <script src="./main.js"></script>
+    <script type="module" src="./main.js"></script>
   </body>
 </html>
