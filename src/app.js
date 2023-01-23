@@ -1,22 +1,28 @@
 import express from "express";
+import session from "express-session";
+import MongoStore from "connect-mongo";
+
 import { Server as HttpServer } from "http";
 import { Server as IOServer } from "socket.io";
 import { faker } from "@faker-js/faker";
 import handlebars from "express-handlebars";
 import bodyParser from "body-parser";
+import cookieParser from "cookie-parser";
+
 import Product from "./containers/classNewProduct.js";
 import ContainerFiles from "./containers/ContainerFiles.js";
 import ContainerFilesMsg from "./containers/ContainerFilesMessages.js";
+
 import { dirname } from "path";
 import { fileURLToPath } from "url";
+const __dirname = dirname(fileURLToPath(import.meta.url));
 
 const productsApi = new ContainerFiles("./DB/products.json");
 const messagesApi = new ContainerFilesMsg("./DB/messages.json");
+const advancedOptions = { useNewUrlParser: true, useUnifiedTopology: true };
 
+//server, socket and api configuration
 const app = express();
-const __dirname = dirname(fileURLToPath(import.meta.url));
-
-//socket and api configuration
 const httpServer = new HttpServer(app);
 const io = new IOServer(httpServer);
 
@@ -38,8 +44,58 @@ app.set("view options", { layout: "productTest" });
 app.use(express.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static("public"));
+app.use(cookieParser());
+app.use(
+  session({
+    store: MongoStore.create({
+      mongoUrl:
+        "mongodb+srv://FranCeballos:asd456@cluster0.avhkc47.mongodb.net/?retryWrites=true&w=majority",
+      mongoOptions: advancedOptions,
+    }),
+    secret: "secret",
+    resave: false,
+    saveUninitialized: false,
+    cookie: {
+      maxAge: 600000,
+    },
+  })
+);
 
+// auth middleware
+function auth(req, res, next) {
+  if (req.session?.user === "coderhouse" && req.session?.admin) {
+    return next();
+  }
+  return res.redirect("/login");
+}
 //--------------------------------------------
+
+let userName = "";
+
+app.get("/", async (req, res) => {
+  res.sendFile(path.join(__dirname + "index.html"));
+});
+
+app.get("/login", async (req, res) => {
+  res.render("login");
+});
+
+app.post("/login", async (req, res) => {
+  const { username } = req.body;
+  userName = username;
+  // if (username !== "coderhouse") return res.send("Login failed.");
+  req.session.user = username;
+  req.session.admin = true;
+  console.log("User on session:", req.session.user);
+  res.redirect("/");
+});
+
+app.get("/logout", (req, res) => {
+  req.session.destroy((err) => {
+    if (err) return res.json({ status: "Logout ERROR", body: err });
+  });
+  res.redirect("/login");
+});
 
 app.post("/products", async (req, res) => {
   const info = req.body;
@@ -99,6 +155,8 @@ io.on("connection", async (socket) => {
   });
 
   socket.emit("products", await productsApi.readAll());
+
+  socket.emit("username", { username: userName });
 
   socket.on("disconnect", () => {
     console.log("User disconnected");

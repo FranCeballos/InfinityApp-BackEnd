@@ -9,16 +9,29 @@ body {
   background-color: #1b1c1e;
 }
 
-.backButton {
+input {
+  padding: 0px 10px;
+  text-align: right;
+}
+
+.navButton {
   color: black;
   font-weight: 600;
   background-color: rgb(237, 237, 237);
   position: absolute;
-  left: 50px;
-  top: 53px;
   text-decoration: none;
   padding: 10px 20px;
   border-radius: 10px;
+}
+
+.topLeftPosition {
+  left: 50px;
+  top: 53px;
+}
+
+.topRightPosition {
+  right: 50px;
+  top: 53px;
 }
 
 .listBox {
@@ -104,4 +117,51 @@ body {
 
 .priceText {
   font-weight: 600;
+}
+
+/* LogIn */
+
+.loginView {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+}
+
+.card {
+  background-color: rgb(211, 211, 211);
+  padding: 50px;
+  border-radius: 30px;
+  width: 606.2px;
+  height: fit-content;
+}
+
+.loginBox {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.formTitle {
+  font-weight: 500;
+  color: black;
+  text-align: center;
+}
+
+.formInputStyle {
+  height: 25px;
+  border: 0px;
+  border-radius: 20px;
+}
+
+.formButtonStyle {
+  color: white;
+  background: #2b2f77;
+  padding: 10px 20px;
+  border: 0px;
+  border-radius: 20px;
+  cursor: pointer;
 }

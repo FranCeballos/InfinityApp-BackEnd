@@ -56,7 +56,6 @@ class ContainerFiles {
           return data;
         }
       );
-      console.log("readAll raw:", productsStr);
       const productsArr = JSON.parse(productsStr);
       this.products = [
         denormalize(
@@ -65,7 +64,6 @@ class ContainerFiles {
           this.products.entities
         ),
       ];
-      console.log("after denormalized", this.products);
       return productsArr;
     } catch (error) {
       console.log(error);

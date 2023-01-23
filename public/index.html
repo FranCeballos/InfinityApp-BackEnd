@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="./css/styles.css" />
+    <link rel="stylesheet" href="../css/stylesIndex.css" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
@@ -18,8 +18,15 @@
     <title>Add Product</title>
   </head>
   <body class="box">
-    <a href="/products" class="backButton"><p>See all products</p></a>
+    <a href="/products" class="navButton topLeftPosition"
+      ><p>See all products</p></a
+    >
+    <a href="/logout" class="navButton topRightPosition"><p>Log Out</p></a>
 
+    <!-- Greeting -->
+    <div class="card">
+      <h1 class="greetingText"></h1>
+    </div>
     <!-- Add new product form -->
     <div class="card">
       <h1 class="formTitle">Add new product</h1>
@@ -133,11 +140,15 @@
         <button type="submit" class="formButtonStyle">Add product</button>
       </form>
     </div>
+
+    <!-- Catalog -->
     <div class="card">
       <h1 class="formTitle">Catalog</h1>
       <table class="tableItems"></table>
     </div>
-    <div class="card">
+
+    <!-- Chat -->
+    <!-- <div class="card">
       <h1 class="formTitle">Chat</h1>
       <div class="chatMessagesBox"></div>
       <form class="chatForm">
@@ -203,8 +214,8 @@
           required
         />
       </form>
-    </div>
+    </div> -->
     <script src="/socket.io/socket.io.js"></script>
-    <script type="module" src="./main.js"></script>
+    <script type="module" src="../js/main.js"></script>
   </body>
 </html>

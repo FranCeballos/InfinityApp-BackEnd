@@ -33,6 +33,10 @@ input {
   height: fit-content;
 }
 
+.greetingText {
+  text-align: center;
+}
+
 .formBox {
   display: flex;
   flex-direction: column;
@@ -74,16 +78,24 @@ input {
   cursor: pointer;
 }
 
-.backButton {
+.navButton {
   color: black;
   font-weight: 600;
   background-color: rgb(237, 237, 237);
   position: absolute;
-  left: 50px;
-  top: 53px;
   text-decoration: none;
   padding: 10px 20px;
   border-radius: 10px;
+}
+
+.topLeftPosition {
+  left: 50px;
+  top: 53px;
+}
+
+.topRightPosition {
+  right: 50px;
+  top: 53px;
 }
 
 .tableItems {

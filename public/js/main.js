@@ -15,6 +15,7 @@ const lastnameInput = document.querySelector("#lastname");
 const ageInput = document.querySelector("#age");
 const usernameInput = document.querySelector("#username");
 const avatarInput = document.querySelector("#avatar");
+const greetingText = document.querySelector(".greetingText");
 
 yearOptions.forEach((year) => {
   let opt = document.createElement("option");
@@ -24,7 +25,7 @@ yearOptions.forEach((year) => {
   yearSelect.appendChild(opt);
 });
 
-document.querySelector(".sendMessageButton").addEventListener("click", (e) => {
+/* document.querySelector(".sendMessageButton").addEventListener("click", (e) => {
   e.preventDefault();
   const date = new Date();
   const dateFormated = `[${String(date.getDate()).padStart(2, "0")}/${String(
@@ -52,9 +53,9 @@ document.querySelector(".sendMessageButton").addEventListener("click", (e) => {
   socket.emit("message", messageObj);
 
   messageInput.value = "";
-});
+}); */
 
-socket.on("messages", (msg) => {
+/* socket.on("messages", (msg) => {
   console.log(msg);
   const htmlMessages = msg.result.messages?.map((msg) => {
     return `
@@ -70,7 +71,7 @@ socket.on("messages", (msg) => {
   htmlMessages?.forEach((msg) => {
     messagesBox.insertAdjacentHTML("beforeend", msg);
   });
-});
+}); */
 
 socket.on("products", (data) => {
   tableItemsBox.innerHTML = "";
@@ -91,3 +92,8 @@ socket.on("products", (data) => {
     );
   });
 });
+
+socket.on(
+  "username",
+  (data) => (greetingText.textContent = `Welcome, ${data.username}`)
+);
