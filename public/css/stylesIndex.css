@@ -10,7 +10,7 @@ body {
 
 input {
   padding: 0px 10px;
-  text-align: right;
+  text-align: left;
 }
 
 .box {
@@ -76,6 +76,11 @@ input {
   border: 0px;
   border-radius: 20px;
   cursor: pointer;
+}
+
+.formButtonText {
+  color: white;
+  text-decoration: none;
 }
 
 .navButton {

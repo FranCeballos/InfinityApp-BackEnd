@@ -1,21 +1,22 @@
 import express from "express";
-import session from "express-session";
-import MongoStore from "connect-mongo";
+// import session from "express-session";
+// import MongoStore from "connect-mongo";
+import { generateAuthToken, auth } from "./jwt.js";
 
 import { Server as HttpServer } from "http";
 import { Server as IOServer } from "socket.io";
 import { faker } from "@faker-js/faker";
 import handlebars from "express-handlebars";
 import bodyParser from "body-parser";
-import cookieParser from "cookie-parser";
+// import cookieParser from "cookie-parser";
 
 import Product from "./containers/classNewProduct.js";
 import ContainerFiles from "./containers/ContainerFiles.js";
 import ContainerFilesMsg from "./containers/ContainerFilesMessages.js";
 
-import { dirname } from "path";
+import path from "path";
 import { fileURLToPath } from "url";
-const __dirname = dirname(fileURLToPath(import.meta.url));
+const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
 const productsApi = new ContainerFiles("./DB/products.json");
 const messagesApi = new ContainerFilesMsg("./DB/messages.json");
@@ -44,7 +45,7 @@ app.set("view options", { layout: "productTest" });
 app.use(express.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static("public"));
-app.use(cookieParser());
+/* app.use(cookieParser());
 app.use(
   session({
     store: MongoStore.create({
@@ -59,44 +60,76 @@ app.use(
       maxAge: 600000,
     },
   })
-);
-
-// auth middleware
-function auth(req, res, next) {
-  if (req.session?.user === "coderhouse" && req.session?.admin) {
-    return next();
-  }
-  return res.redirect("/login");
-}
+); */
 //--------------------------------------------
+
+const users = [];
 
 let userName = "";
 
-app.get("/", async (req, res) => {
-  res.sendFile(path.join(__dirname + "index.html"));
+app.get("/", auth, async (req, res) => {
+  // res.sendFile(path.resolve(__dirname + "/../public/index.html"));
 });
 
+/* -- REGISTER -- */
+app.get("/register", async (req, res) => {
+  res.sendFile(path.resolve(__dirname + "/../public/register.html"));
+});
+
+app.post("/register", async (req, res) => {
+  const userInput = req.body;
+  const userFound = users.find((user) => user.username === userInput.username);
+  if (userFound) {
+    return res.status(400).json({ error: "username already exists" });
+  }
+
+  if (!userInput.counter) {
+    userInput.counter = 0;
+  }
+  users.push(userInput);
+  const access_token = generateAuthToken(userInput.name);
+  console.log("users", users);
+  res.json({ access_token });
+});
+
+app.get("/register-error", async (req, res) => {
+  res.sendFile(path.resolve(__dirname + "/../public/failRegister.html"));
+});
+
+/* -- LOGIN -- */
 app.get("/login", async (req, res) => {
-  res.render("login");
+  res.sendFile(path.resolve(__dirname + "/../public/login.html"));
 });
 
 app.post("/login", async (req, res) => {
-  const { username } = req.body;
-  userName = username;
-  // if (username !== "coderhouse") return res.send("Login failed.");
-  req.session.user = username;
-  req.session.admin = true;
-  console.log("User on session:", req.session.user);
-  res.redirect("/");
+  const { username, password } = req.body;
+  const user = users.find((user) => user.username === username);
+
+  if (!user) {
+    return res.json({ error: "user not registered" });
+  }
+
+  const validCredentials =
+    user.username === username && user.password === password;
+  if (!validCredentials) {
+    return res.json({ error: "invalid username and/or password" });
+  }
+
+  user.counter = 0;
+  const access_token = generateAuthToken(username);
+  res.json({ username, access_token });
 });
 
+app.get("/login-error", async (req, res) => {
+  res.sendFile(path.resolve(__dirname + "/../public/failLogin.html"));
+});
+
+/* -- LOGOUT -- */
 app.get("/logout", (req, res) => {
-  req.session.destroy((err) => {
-    if (err) return res.json({ status: "Logout ERROR", body: err });
-  });
   res.redirect("/login");
 });
 
+/* -- DATA -- */
 app.post("/products", async (req, res) => {
   const info = req.body;
   const newProduct = new Product(
