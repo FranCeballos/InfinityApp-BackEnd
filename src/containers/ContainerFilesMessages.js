@@ -1,5 +1,5 @@
-import fs from "fs";
-import { normalize, denormalize, schema } from "normalizr";
+const fs = require("fs");
+const { normalize, denormalize, schema } = require("normalizr");
 
 class ContainerFiles {
   authorSchema = new schema.Entity("authors");
@@ -125,4 +125,4 @@ class ContainerFiles {
   }
 }
 
-export default ContainerFiles;
+module.exports = ContainerFiles;

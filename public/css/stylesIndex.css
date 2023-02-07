@@ -33,6 +33,14 @@ input {
   height: fit-content;
 }
 
+.card p {
+  margin-bottom: 10px;
+}
+
+.card h1 {
+  margin-bottom: 20px;
+}
+
 .greetingText {
   text-align: center;
 }

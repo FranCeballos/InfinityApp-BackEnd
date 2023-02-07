@@ -1,5 +1,5 @@
-import knex from "knex";
-import config from "../config.js";
+const knex = require("knex");
+const config = require("../config.js");
 
 const knexClientMariaDb = knex(config.mariaDb);
 const knexClientSQLite3 = knex(config.sqlite3);

@@ -1,22 +1,24 @@
-import express from "express";
-// import session from "express-session";
-// import MongoStore from "connect-mongo";
-import { generateAuthToken, auth } from "./jwt.js";
+const express = require("express");
+const path = require("path");
+// const session = require("express-session");
+// const MongoStore = require("connect-mongo");
+const { generateAuthToken, auth } = require("./jwt.js");
 
-import { Server as HttpServer } from "http";
-import { Server as IOServer } from "socket.io";
-import { faker } from "@faker-js/faker";
-import handlebars from "express-handlebars";
-import bodyParser from "body-parser";
-// import cookieParser from "cookie-parser";
+const yargs = require("yargs");
+const args = yargs.default({
+  PORT: 8080,
+}).argv;
 
-import Product from "./containers/classNewProduct.js";
-import ContainerFiles from "./containers/ContainerFiles.js";
-import ContainerFilesMsg from "./containers/ContainerFilesMessages.js";
+const { Server: HttpServer } = require("http");
+const { Server: IOServer } = require("socket.io");
+const { faker } = require("@faker-js/faker");
+const bodyParser = require("body-parser");
+// const cookieParser = require("cookie-parser");
 
-import path from "path";
-import { fileURLToPath } from "url";
-const __dirname = path.dirname(fileURLToPath(import.meta.url));
+const randomRouter = require("./routes/random.js");
+const Product = require("./containers/classNewProduct.js");
+const ContainerFiles = require("./containers/ContainerFiles.js");
+const ContainerFilesMsg = require("./containers/ContainerFilesMessages.js");
 
 const productsApi = new ContainerFiles("./DB/products.json");
 const messagesApi = new ContainerFilesMsg("./DB/messages.json");
@@ -27,30 +29,20 @@ const app = express();
 const httpServer = new HttpServer(app);
 const io = new IOServer(httpServer);
 
-//Set engine
-app.engine(
-  "hbs",
-  handlebars.engine({
-    extname: ".hbs",
-    defaultLayout: "index.hbs",
-    layoutsDir: __dirname + "/views/layouts/",
-    partialsDir: __dirname + "/views/partials/",
-  })
-);
-
 //middleware
-app.set("view engine", "hbs");
-app.set("views", "./views");
+app.set("view engine", "ejs");
+app.set("views", "./src/views");
 app.set("view options", { layout: "productTest" });
 app.use(express.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static("public"));
+app.use("/api", randomRouter);
 /* app.use(cookieParser());
 app.use(
   session({
     store: MongoStore.create({
       mongoUrl:
-        "mongodb+srv://FranCeballos:asd456@cluster0.avhkc47.mongodb.net/?retryWrites=true&w=majority",
+        process.env.MONGO_URL,
       mongoOptions: advancedOptions,
     }),
     secret: "secret",
@@ -150,7 +142,7 @@ app.post("/products", async (req, res) => {
 app.get("/products", async (req, res) => {
   const products = await productsApi.readAll();
   console.log(products);
-  res.render("main", { list: products });
+  res.render("products", { list: products, pageTitle: "View Products" });
 });
 
 app.get("/products-test", async (req, res) => {
@@ -165,12 +157,15 @@ app.get("/products-test", async (req, res) => {
       price: faker.commerce.price(1, 50),
       img: faker.image.abstract(),
     });
-  res.render("main", { list: products });
+  res.render("products", { list: products, pageTitle: "Products Test" });
+});
+
+app.get("/info", (req, res) => {
+  res.render("info", { processObj: process, args: args, pageTitle: "Info" });
 });
 //--------------------------------------------
 
-const PORT = 8070;
-const server = httpServer.listen(PORT, () => {
+const server = httpServer.listen(args.PORT, () => {
   console.log(`Servidor http escuchando en el puerto ${server.address().port}`);
 });
 

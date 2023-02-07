@@ -1,0 +1,16 @@
+<%- include("./partials/head.ejs") %>
+
+    </head>
+    <body class="box">
+        <div class="card">
+            <h1>Info</h1>
+            <p><strong>Input Arguments:</strong> <%= args._.join(", ") %></p>
+            <p><strong>OS Platform:</strong> <%= processObj.platform %></p>
+            <p><strong>Node version:</strong> <%= processObj.version %></p>
+            <p><strong>Total Reserved Memory:</strong> <%= processObj.memoryUsage.rss() %> bytes</p>
+            <p><strong>Execution Path:</strong> <%= processObj.execPath %></p>
+            <p><strong>Process Id:</strong> <%- processObj.getegid() %></p>
+            <p><strong>Project Folder:</strong> <%- processObj.cwd() %></p>
+        </div>
+
+<%- include("./partials/end.ejs") %>

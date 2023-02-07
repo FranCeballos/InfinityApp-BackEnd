@@ -1,13 +1,13 @@
-import jwt from "jsonwebtoken";
+const jwt = require("jsonwebtoken");
 
-const PRIVATE_KEY = "asd456";
-
-export const generateAuthToken = (name) => {
-  const token = jwt.sign({ name: name }, PRIVATE_KEY, { expiresIn: "120s" });
+function generateAuthToken(name) {
+  const token = jwt.sign({ name: name }, process.env.PRIVATE_KEY, {
+    expiresIn: "120s",
+  });
   return token;
 };
 
-export const auth = (req, res, next) => {
+function auth(req, res, next) {
   const authHeader =
     req.headers["authorization"] || req.headers["Authorization"] || "";
   console.log("req.headers", req.headers);
@@ -30,7 +30,7 @@ export const auth = (req, res, next) => {
   }
 
   try {
-    req.user = jwt.verify(token, PRIVATE_KEY);
+    req.user = jwt.verify(token, process.env.PRIVATE_KEY);
   } catch (err) {
     return res.status(401).json({
       error: "invalid token",
@@ -39,4 +39,9 @@ export const auth = (req, res, next) => {
   }
 
   next();
+};
+
+module.exports = {
+  generateAuthToken,
+  auth,
 };
