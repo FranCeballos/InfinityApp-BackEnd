@@ -1,0 +1,39 @@
+<%- include('./partials/head.ejs', {pageTitle: pageTitle}) %>
+
+  </head>
+
+  <body>
+    <div class="listBox">
+      <h1 class="listTitle whiteColor">Movies And Series</h1>
+      <a class="navButton topLeftPosition" href="/admin/products" >
+        <p>Add product</p>
+      </a>
+      <a class="navButton topRightPosition" href="/logout">
+        <p>Log Out</p>
+      </a>
+      <% if(list) { %>
+      <div class="listGrid">
+        <% list.forEach(item => { %>
+          <div class="listItem">
+            <div class="itemDesImgBox">
+              <img class="itemDesImg" src="<%= item.img %>"  alt="<%= item.title %>" />
+            </div>
+            <div class="itemDesBox">
+              <h3 class="whiteColor"><%= item.name %></h3>
+              <div class="itemDesBox2">
+                <p class="itemDesText whiteColor"><%= item.rating %></p>
+                <p class="itemDesText whiteColor"><%= item.duration %></p>
+                <p class="itemDesText whiteColor"><%= item.year %></p>
+              </div>
+              <div class="itemDesBox2">
+                <p class="priceText whiteColor">$ <%= item.price %></p>
+                <p class="itemDesText whiteColor"><%= item.strService %></p>
+              </div>
+            </div>
+          </div>
+        <% })%>
+        </div>
+      <% } else {%>
+        <h4 class="whiteColor">No products found.</h4>
+        <% } %>
+<%- include("./partials/end.ejs") %>
