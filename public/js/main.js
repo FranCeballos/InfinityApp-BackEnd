@@ -87,6 +87,10 @@ socket.on("products", (data) => {
             <img class="tableImg" src="${item.img}" alt="${item.name}" />
           </div>
         </td>
+        <td><form action="/admin/product-delete" method="post">
+        <input type="hidden" value=${item._id} name="productId"></input>
+        <button type="submit" class="btn-delete">-</button>
+        </form></td>
       </tr>
     `
     );

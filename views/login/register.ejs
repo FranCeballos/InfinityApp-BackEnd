@@ -13,11 +13,61 @@
       <p class="logInTitle">Register</p>
       <form class="logInBox" action="/register" method="post">
         <input
-          id="username"
-          name="username"
+          id="firstName"
+          name="firstName"
           class="formInputStyle"
           type="text"
-          placeholder="Username"
+          placeholder="First Name"
+          required
+        />
+        <input
+          id="lastName"
+          name="lastName"
+          class="formInputStyle"
+          type="text"
+          placeholder="Last Name"
+          required
+        />
+        <input
+          id="email"
+          name="email"
+          class="formInputStyle"
+          type="email"
+          placeholder="Email"
+          required
+        />
+        <input
+          id="age"
+          name="age"
+          class="formInputStyle"
+          type="number"
+          placeholder="Age"
+          required
+        />
+        <div>
+          <input
+            id="phoneCharacteristic"
+            name="phoneCharacteristic"
+            class="formInputStyle"
+            type="number"
+            placeholder="Phone Characteristic"
+            required
+          />
+          <input
+            id="phone"
+            name="phone"
+            class="formInputStyle"
+            type="number"
+            placeholder="Phone number"
+            required
+          />
+        </div>
+        <input
+          id="country"
+          name="country"
+          class="formInputStyle"
+          type="text"
+          placeholder="Country"
           required
         />
         <input
@@ -28,7 +78,15 @@
           placeholder="Password"
           required
         />
-        <button class="formButtonStyle">Confirm SignUp</button>
+        <input
+          id="avatar"
+          name="avatar"
+          class="formInputStyle"
+          type="text"
+          placeholder="Avatar URL"
+          required
+        />
+        <button class="formButtonStyle" type="submit">Confirm SignUp</button>
       </form>
       <a class="registerLink" href="/login">LogIn</a>
     </div>

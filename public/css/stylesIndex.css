@@ -138,6 +138,18 @@ input {
   border-radius: 20px;
 }
 
+.btn-delete {
+  padding: 5px 10px;
+  border-radius: 100px;
+  border: 1px solid rgba(0, 0, 0, 0);
+  cursor: pointer;
+  transition: all 0.3s ease-in;
+}
+
+.btn-delete:hover {
+  border: 1px solid black;
+}
+
 .chatForm {
   display: flex;
   flex-direction: column;

@@ -1,8 +1,6 @@
-const { generateAuthToken, auth } = require("../jwt.js");
+const User = require("../models/user.js");
 const logger = require("../logger.js");
-
-const users = [];
-let userName = "";
+const jwt = require("jsonwebtoken");
 
 exports.getRegister = async (req, res) => {
   logger.info(`${req.method} ${req.originalUrl}`);
@@ -11,21 +9,22 @@ exports.getRegister = async (req, res) => {
 
 exports.postRegister = async (req, res) => {
   logger.info(`${req.method} ${req.originalUrl}`);
-  const userInput = req.body;
-  const userFound = users.find((user) => user.username === userInput.username);
-  if (userFound) {
-    return res
-      .status(400)
-      .render("login/failRegister", { error: "Username already exists" });
-  }
-
-  if (!userInput.counter) {
-    userInput.counter = 0;
-  }
-  users.push(userInput);
-  const access_token = generateAuthToken(userInput.name);
-  console.log("users", users, access_token);
-  res.redirect("/register-success");
+  const body = req.body;
+  const user = new User({
+    firstName: body.firstName,
+    lastName: body.lastName,
+    username: body.email,
+    age: body.age,
+    phoneCharacteristic: body.phoneCharacteristic,
+    phone: body.phone,
+    country: body.country,
+    password: body.password,
+    avatar: body.avatar,
+  });
+  user
+    .save()
+    .then(() => res.redirect("/register-success"))
+    .catch((err) => res.render("login/failRegister", { error: err }));
 };
 
 exports.getRegisterSuccess = async (req, res) => {
@@ -35,42 +34,48 @@ exports.getRegisterSuccess = async (req, res) => {
 
 exports.getRegisterError = async (req, res) => {
   logger.info(`${req.method} ${req.originalUrl}`);
-  res.render("login/failRegister");
+  res.render("login/failRegister", { error: req.session.messages });
 };
 
 exports.getLogIn = async (req, res) => {
-  logger.info(`${req.method} ${req.originalUrl}`);
-  res.render("login/login");
+  if (req.isAuthenticated()) {
+    logger.info(`${req.method} ${req.originalUrl}`);
+    res.redirect("/products");
+  } else {
+    console.log("User not logged");
+    res.render("login/login");
+  }
 };
 
 exports.postLogIn = async (req, res) => {
   logger.info(`${req.method} ${req.originalUrl}`);
-  const { username, password } = req.body;
-  const user = users.find((user) => user.username === username);
-
-  if (!user) {
-    return res.render("login/failLogin", { error: "User not registered" });
-  }
-
-  const validCredentials =
-    user.username === username && user.password === password;
-  if (!validCredentials) {
-    return res.render("login/failLogin", {
-      error: "Invalid username and/or password",
-    });
-  }
-
-  user.counter = 0;
-  const access_token = generateAuthToken(username);
-  res.json({ username, access_token });
+  jwt.sign(
+    { user: req.user },
+    process.env.SECRET_KEY,
+    { expiresIn: "1h" },
+    (err, token) => {
+      if (err) {
+        return res.json({
+          message: "Failed to login",
+          token: null,
+        });
+      }
+      res.json({ token });
+    }
+  );
 };
 
 exports.getLogInError = async (req, res) => {
   logger.info(`${req.method} ${req.originalUrl}`);
-  res.render("login/failLogin");
+  res.render("login/failLogin", { error: req.session.messages });
 };
 
-exports.getLogOut = (req, res) => {
+exports.getLogOut = (req, res, next) => {
   logger.info(`${req.method} ${req.originalUrl}`);
-  res.redirect("/login");
+  req.logout((err) => {
+    if (err) {
+      return next(err);
+    }
+    res.redirect("/login");
+  });
 };

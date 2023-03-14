@@ -24,16 +24,6 @@ input {
   border-radius: 10px;
 }
 
-.topLeftPosition {
-  left: 50px;
-  top: 53px;
-}
-
-.topRightPosition {
-  right: 50px;
-  top: 53px;
-}
-
 .listBox {
   display: flex;
   flex-direction: column;
@@ -60,6 +50,37 @@ input {
   width: 225px;
   height: 300px;
   border-radius: 20px;
+  transition: all 0.2s ease-out;
+  position: relative;
+}
+
+.listItem:hover {
+  transform: scale(1.05);
+  cursor: pointer;
+}
+
+.listItem:hover .addCartButton {
+  opacity: 1;
+}
+
+.listItem:active {
+  transform: scale(1.03);
+}
+.addCartButton {
+  opacity: 0;
+  transition: all 0.1s ease-out;
+  color: white;
+  width: 100%;
+  font-size: 16px;
+  font-weight: 800;
+  text-align: center;
+  text-transform: uppercase;
+  position: absolute;
+  top: 20%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  cursor: pointer;
+  text-shadow: 0px 0px 20px black;
 }
 
 .itemDesImgBox {

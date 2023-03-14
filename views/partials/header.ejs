@@ -1,0 +1,26 @@
+<header>
+    <nav>
+      <div>
+        <a class="centerItems" href="/products">
+          <p>Shop</p>
+          <span class="<%- path === '/products' ? 'activeDot' : 'hiddenDot' %>"></span>
+        </a>
+        <a class="centerItems" href="/cart">
+          <p>Cart</p>
+          <span class="<%- path === '/cart' ? 'activeDot' : 'hiddenDot' %>"></span>
+        </a>
+        <a class="centerItems" href="/orders">
+          <p>Orders</p>
+          <span class="<%- path === '/orders' ? 'activeDot' : 'hiddenDot' %>"></span>
+        </a>
+        <a class="centerItems" href="/admin/products">
+          <p>Admin Products</p>
+          <span class="<%- path === '/admin/add-product' ? 'activeDot' : 'hiddenDot' %>"></span>
+        </a>
+      </div>
+      <a class="centerItems" href="/logout">
+        <p>Log Out</p>
+         <span class="<%- path === '/admin/products' ? 'activeDot' : 'hiddenDot' %>"></span>
+      </a>
+    </nav>
+</header>

@@ -3,10 +3,30 @@ const router = express.Router();
 
 const controllerAdmin = require("../controllers/admin.js");
 
-router.get("/products", controllerAdmin.getProducts);
+module.exports = (passport) => {
+  router.get(
+    "/products",
+    passport.authenticate("login", { session: false }),
+    controllerAdmin.getProducts
+  );
 
-router.post("/products", controllerAdmin.postProducts);
+  router.post(
+    "/products",
+    passport.authenticate("login", { session: false }),
+    controllerAdmin.postProduct
+  );
 
-router.get("/info", controllerAdmin.getInfo);
+  router.post(
+    "/product-delete",
+    passport.authenticate("login", { session: false }),
+    controllerAdmin.postDeleteProduct
+  );
 
-module.exports = router;
+  router.get(
+    "/info",
+    passport.authenticate("login", { session: false }),
+    controllerAdmin.getInfo
+  );
+
+  return router;
+};

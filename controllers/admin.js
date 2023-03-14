@@ -1,24 +1,24 @@
 const os = require("os");
 const logger = require("../logger.js");
-const Product = require("../models/Product.js");
+const Product = require("../models/product.js");
 
 const yargs = require("yargs");
 const args = yargs.default({
   PORT: 8080,
 }).argv;
 
-exports.getProducts = async (req, res) => {
+exports.getProducts = (req, res) => {
   logger.info(`${req.method} ${req.originalUrl}`);
-  Product.readAll((products) => {
+  Product.find().then((products) => {
     res.render("index");
 
     const io = req.app.get("socketio");
-    io.once("connection", async (socket) => {
+    io.once("connection", (socket) => {
       console.log("User connected");
       //TODO
       /* socket.emit("messages", await messagesApi.readAll());
 
-      socket.on("message", async (data) => {
+      socket.on("message", (data) => {
         console.log("Recieved msg:,", data);
         await messagesApi.create(data);
         io.sockets.emit("messages", await messagesApi.readAll());
@@ -35,26 +35,37 @@ exports.getProducts = async (req, res) => {
   });
 };
 
-exports.postProducts = async (req, res) => {
+exports.postProduct = (req, res) => {
   logger.info(`${req.method} ${req.originalUrl}`);
   const info = req.body;
-  const newProduct = new Product(
-    null,
-    info.name,
-    info.rating,
-    info.hours,
-    info.minutes,
-    info.year,
-    info.strService,
-    info.price,
-    info.img
-  );
-  newProduct.save();
-  console.log(newProduct);
-  res.redirect("/");
+  const product = new Product({
+    name: info.name,
+    rating: info.rating,
+    duration: `${info.hours}h ${info.minutes}m`,
+    year: info.year,
+    strService: info.strService,
+    price: info.price,
+    img: info.img,
+  });
+  product
+    .save()
+    .then((result) => {
+      return console.log("Product saved");
+    })
+    .catch((err) => console.log(err));
+  res.redirect("/admin/products");
 };
 
-exports.getInfo = async (req, res) => {
+exports.postDeleteProduct = (req, res) => {
+  const prodId = req.body.productId;
+  Product.findByIdAndRemove(prodId)
+    .then(() => {
+      return res.redirect("/admin/products");
+    })
+    .catch((err) => console.log(err));
+};
+
+exports.getInfo = (req, res) => {
   logger.info(`${req.method} ${req.originalUrl}`);
   res.render("info", {
     processObj: process,
