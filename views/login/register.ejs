@@ -1,21 +1,20 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Register</title>
-    <link rel="stylesheet" href="/css/stylesIndex.css" />
-    <link rel="stylesheet" href="/css/stylesLogIn.css" />
+<%- include('../partials/head.ejs', {pageTitle: pageTitle}) %>
+<link rel="stylesheet" href="/css/login.css">
+<link rel="stylesheet" href="/css/form.css">
+  </head>
+
+  <body>
   </head>
   <body class="box">
-    <div class="card logInBox">
-      <p class="logInTitle">Register</p>
-      <form class="logInBox" action="/register" method="post">
+    <%- include('../partials/header.ejs') %>
+    <div class="card login-box fadein">
+      <p class="login-title">Register</p>
+      <form class="login-box" action="/register" method="post">
+        <input type="hidden" name="_csrf" value="<%= csrfToken %>">
         <input
           id="firstName"
           name="firstName"
-          class="formInputStyle"
+          class="form-input"
           type="text"
           placeholder="First Name"
           required
@@ -23,7 +22,7 @@
         <input
           id="lastName"
           name="lastName"
-          class="formInputStyle"
+          class="form-input"
           type="text"
           placeholder="Last Name"
           required
@@ -31,7 +30,7 @@
         <input
           id="email"
           name="email"
-          class="formInputStyle"
+          class="form-input"
           type="email"
           placeholder="Email"
           required
@@ -39,7 +38,7 @@
         <input
           id="age"
           name="age"
-          class="formInputStyle"
+          class="form-input"
           type="number"
           placeholder="Age"
           required
@@ -48,15 +47,16 @@
           <input
             id="phoneCharacteristic"
             name="phoneCharacteristic"
-            class="formInputStyle"
+            class="form-input"
             type="number"
             placeholder="Phone Characteristic"
+            maxlength="2"
             required
           />
           <input
             id="phone"
             name="phone"
-            class="formInputStyle"
+            class="form-input"
             type="number"
             placeholder="Phone number"
             required
@@ -65,7 +65,7 @@
         <input
           id="country"
           name="country"
-          class="formInputStyle"
+          class="form-input"
           type="text"
           placeholder="Country"
           required
@@ -73,7 +73,7 @@
         <input
           id="password"
           name="password"
-          class="formInputStyle"
+          class="form-input"
           type="text"
           placeholder="Password"
           required
@@ -81,14 +81,15 @@
         <input
           id="avatar"
           name="avatar"
-          class="formInputStyle"
+          class="form-input"
           type="text"
           placeholder="Avatar URL"
           required
         />
-        <button class="formButtonStyle" type="submit">Confirm SignUp</button>
+        <% if (messageError) { %>
+          <p><%= messageError %></p>
+          <% } %>
+        <button class="form-btn" type="submit">Confirm SignUp</button>
       </form>
-      <a class="registerLink" href="/login">LogIn</a>
     </div>
-  </body>
-</html>
+    <%- include("../partials/end.ejs") %>

@@ -10,7 +10,11 @@ const args = yargs.default({
 exports.getProducts = (req, res) => {
   logger.info(`${req.method} ${req.originalUrl}`);
   Product.find().then((products) => {
-    res.render("index");
+    res.render("admin/index", {
+      path: "/admin/products",
+      pageTitle: "Admin Products",
+      name: req.user.firstName,
+    });
 
     const io = req.app.get("socketio");
     io.once("connection", (socket) => {
@@ -25,8 +29,6 @@ exports.getProducts = (req, res) => {
       }); */
 
       socket.emit("products", products);
-      //TODO
-      socket.emit("username", { username: "" });
 
       socket.on("disconnect", () => {
         console.log("User disconnected");
@@ -67,10 +69,11 @@ exports.postDeleteProduct = (req, res) => {
 
 exports.getInfo = (req, res) => {
   logger.info(`${req.method} ${req.originalUrl}`);
-  res.render("info", {
+  res.render("admin/info", {
     processObj: process,
     os,
     args: args,
     pageTitle: "Info",
+    path: "/admin/info"
   });
 };

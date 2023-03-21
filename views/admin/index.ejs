@@ -1,48 +1,27 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="../css/stylesIndex.css" />
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Montserrat:wght@100;200;300;400;500;600;700;800;900&display=swap"
-      rel="stylesheet"
-    />
-    <script
-      href="https://cdn.jsdelivr.net/npm/normalizr@3.6.1/dist/normalizr.browser.min.js
-    "
-    ></script>
-    <title>Add Product</title>
-  </head>
-  <body class="box">
-    <div class="topLeftPosition">
-      <a href="/products" class="navButton "
-      ><p>See all products</p></a
-      >
-      <a class="navButton" href="/admin/info" >
-        <p>Info</p>
-      </a>
-    </div>
-    <a href="/logout" class="navButton topRightPosition"><p>Log Out</p></a>
+<%- include('../partials/head.ejs', {pageTitle: pageTitle}) %>
+<link rel="stylesheet" href="/css/index.css">
+<link rel="stylesheet" href="/css/form.css">
 
+  </head>
+
+  <body class="box">
+    <%- include('../partials/header.ejs') %>
     <!-- Greeting -->
     <div class="card">
-      <h1 class="greetingText"></h1>
+      <h1 class="greeting-text">Welcome, <%= name %></h1>
     </div>
     <!-- Add new product form -->
     <div class="card">
-      <h1 class="formTitle">Add new product</h1>
-      <form action="/admin/products" method="post" class="formBox">
+      <h1 class="form-title card-title">Add new product</h1>
+      <form action="/admin/products" method="post" class="form-box">
+        <input type="hidden" name="_csrf" value="<%= csrfToken %>">
         <!-- Name -->
         <div>
           <label for="name">Name:</label>
           <input
             id="name"
             name="name"
-            class="formInputStyle"
+            class="form-input"
             type="text"
             required
           />
@@ -55,7 +34,7 @@
             id="rating"
             name="rating"
             type="text"
-            class="formSelectStyle"
+            class="form-select"
             required
           >
             <option value="default" selected>Select rating</option>
@@ -69,13 +48,13 @@
 
         <!-- Time Duration -->
         <div>
-          <fieldset class="formDurationField">
+          <fieldset class="form-fieldset-duration">
             <legend>Duration</legend>
             <label for="hours">Hours:</label>
             <input
               id="hours"
               name="hours"
-              class="formInputStyle"
+              class="form-input"
               type="number"
               required
             />
@@ -83,7 +62,7 @@
             <input
               id="minutes"
               name="minutes"
-              class="formInputStyle"
+              class="form-input"
               type="number"
               required
             />
@@ -97,7 +76,7 @@
             id="year"
             name="year"
             type="text"
-            class="formSelectStyle"
+            class="form-select"
             required
           >
             <option value="default" selected>Select year of release</option>
@@ -111,14 +90,14 @@
             id="strService"
             name="strService"
             type="text"
-            class="formSelectStyle"
+            class="form-select"
             required
           >
             <option value="default" selected>Select streaming service</option>
             <option value="Disney+">Disney+</option>
             <option value="Netflix">Netflix</option>
             <option value="HBO Max">HBO Max</option>
-            <option value="Amazon Prime Video">Amazon Prime Video</option>
+            <option value="Amazon Prime">Amazon Prime Video</option>
             <option value="Paramount+">Paramount+</option>
           </select>
         </div>
@@ -129,7 +108,7 @@
           <input
             id="price"
             name="price"
-            class="formInputStyle"
+            class="form-input"
             type="text"
             required
           />
@@ -138,18 +117,18 @@
         <!-- Image -->
         <div>
           <label for="img">Image:</label>
-          <input id="img" name="img" type="url" class="formInputStyle" />
+          <input id="img" name="img" type="url" class="form-input" />
         </div>
 
         <!-- Submit Button -->
-        <button type="submit" class="formButtonStyle">Add product</button>
+        <button type="submit" class="form-btn">Add product</button>
       </form>
     </div>
 
     <!-- Catalog -->
     <div class="card">
-      <h1 class="formTitle">Catalog</h1>
-      <table class="tableItems"></table>
+      <h1 class="form-title card-title">Catalog</h1>
+      <table class="table-items"></table>
     </div>
 
     <!-- Chat -->
@@ -157,6 +136,7 @@
       <h1 class="formTitle">Chat</h1>
       <div class="chatMessagesBox"></div>
       <form class="chatForm">
+        <input type="hidden" name="_csrf" value="<%= csrfToken %>">
         <div class="chatInputBox">
           <input
             id="chat"

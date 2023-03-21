@@ -1,43 +1,46 @@
-<%- include("../includes/head.ejs") %>
+<%- include("../partials/head.ejs") %>
   <link rel="stylesheet" href="/css/cart.css">
 
-<%- include("../includes/start.ejs") %>
+</head>
+<body class="box">
 
-    <%- include("../includes/header.ejs") %>
+    <%- include("../partials/header.ejs") %>
 
-    <main class="cartBox">
-      <h1 class="cartTitle">Cart</h1>
+    <main class="cart-box">
+      <h1 class="cart-title">Cart</h1>
       <% if (products.length > 0) { %>
-      <div class="cartItemsBox">
+      <div class="cart-items-box">
         <% products.forEach(prod => { %>
-          <div class="cartItem">
-            <div class="cartImageBox">
-              <img class="cartImage" src="<%= prod.productId.imageUrl %>" alt="<%= prod.productId.name %>" >
+          <div class="cart-item">
+            <div class="cart-img-box">
+              <img class="cart-img" src="<%= prod.productId.img %>" alt="<%= prod.productId.name %>" >
             </div>
-            <p class="cartItemName"><%= prod.productId.name %></p>
-            <p class="cartItemPrice">$ <%= prod.productId.price %></p>
-            <div class="cartSubBox">
-              <p class="cartItemPrice">Qty: <%= prod.quantity %></p>
+            <div class="cart-column">
+              <p class="cart-name font-white"><%= prod.productId.name %></p>
+              <p class="font-white">$ <%= prod.productId.price %></p>
+              <!-- <p class="font-white">Qty: <%= prod.quantity %></p> -->
+            </div>
+            <div class="cart-subbox">
               <form action="/cart-delete-item" method="post">
-                <div class="confirmBtnBox">
+                <input type="hidden" name="_csrf" value="<%= csrfToken %>">
                   <input type="hidden" value="<%= prod.productId._id %>" name="productId" >
-                  <button class="confirmBtn" type="submit">Delete</button>
-                </div>
+                  <div class="btn-delete-box">
+                    <button class="btn-delete font-white" type="submit">-</button>
+                  </div>
               </form>
             </div>
           </div>
         <% }) %>
-        <div>
+        <div class="btn-order-box">
           <form method="post" action="/create-order">
-            <div class="confirmBtnBox">
-              <button class="confirmBtn" type="submit">Order!</button>
-            </div>
+            <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+            <button class="btn-order font-white" type="submit">Order</button>
           </form>
         </div>
       </div>
       <% } else { %>
-        <p class="emptyText">Cart empty</p>
+        <p class="font-white">Cart empty</p>
       <% } %>    
     </main>
 
-<%- include("../includes/end.ejs") %>
+<%- include("../partials/end.ejs") %>

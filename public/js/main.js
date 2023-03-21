@@ -6,8 +6,8 @@ for (let i = 2023; i >= 1900; i--) {
 }
 
 const yearSelect = document.querySelector("#year");
-const tableItemsBox = document.querySelector(".tableItems");
-const messagesBox = document.querySelector(".chatMessagesBox");
+const tableItemsBox = document.querySelector(".table-items");
+const messagesBox = document.querySelector(".chat-msg-box");
 const messageInput = document.querySelector("#chat");
 const emailInput = document.querySelector("#email");
 const nameInput = document.querySelector("#name");
@@ -15,7 +15,7 @@ const lastnameInput = document.querySelector("#lastname");
 const ageInput = document.querySelector("#age");
 const usernameInput = document.querySelector("#username");
 const avatarInput = document.querySelector("#avatar");
-const greetingText = document.querySelector(".greetingText");
+const greetingText = document.querySelector(".greeting-text");
 
 yearOptions.forEach((year) => {
   let opt = document.createElement("option");
@@ -59,10 +59,10 @@ yearOptions.forEach((year) => {
   console.log(msg);
   const htmlMessages = msg.result.messages?.map((msg) => {
     return `
-    <div class="chatMessageItem">
-      <p class="chatEmailStyle">${msg.author.id}</p>
-      <p class="chatTimeStyle">${msg.date}:</p>
-      <p class="chatTextStyle">${msg.text}</p>
+    <div class="chat-msg-item">
+      <p class="chat-email">${msg.author.id}</p>
+      <p class="chat-time">${msg.date}:</p>
+      <p class="chat-text">${msg.text}</p>
     </div>`;
   });
 
@@ -83,8 +83,8 @@ socket.on("products", (data) => {
         <td>${item.name}</td>
         <td>$${item.price}</td>
         <td>
-          <div class="tableImgBox">
-            <img class="tableImg" src="${item.img}" alt="${item.name}" />
+          <div class="table-img-box">
+            <img class="table-img" src="${item.img}" alt="${item.name}" />
           </div>
         </td>
         <td><form action="/admin/product-delete" method="post">
@@ -96,8 +96,3 @@ socket.on("products", (data) => {
     );
   });
 });
-
-socket.on(
-  "username",
-  (data) => (greetingText.textContent = `Welcome, ${data.username}`)
-);

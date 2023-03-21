@@ -1,32 +1,16 @@
 const express = require("express");
 const router = express.Router();
 
+const isAuth = require("../utils/is-auth.js");
+
 const controllerAdmin = require("../controllers/admin.js");
 
-module.exports = (passport) => {
-  router.get(
-    "/products",
-    passport.authenticate("login", { session: false }),
-    controllerAdmin.getProducts
-  );
+router.get("/products", isAuth, controllerAdmin.getProducts);
 
-  router.post(
-    "/products",
-    passport.authenticate("login", { session: false }),
-    controllerAdmin.postProduct
-  );
+router.post("/products", isAuth, controllerAdmin.postProduct);
 
-  router.post(
-    "/product-delete",
-    passport.authenticate("login", { session: false }),
-    controllerAdmin.postDeleteProduct
-  );
+router.post("/product-delete", isAuth, controllerAdmin.postDeleteProduct);
 
-  router.get(
-    "/info",
-    passport.authenticate("login", { session: false }),
-    controllerAdmin.getInfo
-  );
+router.get("/info", isAuth, controllerAdmin.getInfo);
 
-  return router;
-};
+module.exports = router;

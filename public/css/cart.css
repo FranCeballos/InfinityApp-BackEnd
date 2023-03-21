@@ -1,0 +1,121 @@
+.cart-box {
+  width: 1200px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.cart-title {
+  color: rgb(216, 216, 216);
+  margin-bottom: 40px;
+}
+
+.cart-items-box {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 30px;
+}
+
+.cart-item {
+  padding: 10px;
+  box-shadow: 0px 0px 10px black;
+  width: 400px;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+  border-radius: 20px;
+  position: relative;
+}
+
+.cart-img-box {
+  width: 100px;
+  height: 100px;
+  border-radius: 15px;
+  margin-right: 20px;
+}
+
+.cart-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 15px;
+}
+
+.cart-column {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-start;
+  gap: 10px;
+}
+
+.cart-name {
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  font-size: 18px;
+  font-weight: 800;
+}
+
+.font-white {
+  color: rgb(216, 216, 216);
+}
+
+.btn-delete-box {
+  height: 35px;
+  width: 35px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: rgb(37, 37, 37);
+  border: 0px;
+  border-radius: 50%;
+  transition: 0.3s ease-out;
+  position: absolute;
+  top: 50%;
+  right: 10%;
+  transform: translateY(-50%);
+}
+
+.btn-delete-box:hover {
+  box-shadow: 0px 0px 15px black;
+}
+
+.btn-delete {
+  width: 100%;
+  height: 100%;
+  font-size: 20px;
+  background-color: rgb(37, 37, 37);
+  border: 0px;
+  border-radius: 50%;
+  cursor: pointer;
+}
+
+.btn-order-box {
+  margin-top: 30px;
+}
+
+.btn-order {
+  padding: 10px 10px;
+  font-size: 20px;
+  background-color: rgb(102, 129, 144);
+  border: 0px;
+  border-radius: 10px;
+  cursor: pointer;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.737);
+  transition: 0.3s ease-out;
+}
+
+.btn-order:hover {
+  transform: scale(1.02);
+  box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.737);
+}
+
+.btn-order:active {
+  transform: scale(0.97);
+  box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.737);
+}

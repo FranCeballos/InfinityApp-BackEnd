@@ -1,0 +1,44 @@
+.form-box {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 30px;
+}
+
+.form-title {
+  font-weight: 500;
+  color: black;
+  text-align: center;
+}
+
+.form-input {
+  height: 25px;
+  border: 0px;
+  border-radius: 20px;
+}
+
+.form-btn {
+  color: white;
+  background: #2b2f77;
+  padding: 10px 20px;
+  border: 0px;
+  border-radius: 20px;
+  cursor: pointer;
+}
+
+.form-select {
+  padding: 5px 10px;
+  border: 0px;
+  border-radius: 20px;
+}
+
+.form-fieldset-duration {
+  padding: 20px;
+  border-radius: 20px;
+}
+
+.form-button-text {
+  color: white;
+  text-decoration: none;
+}

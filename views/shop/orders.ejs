@@ -1,26 +1,27 @@
-<%- include("../includes/head.ejs") %>
-<link rel="stylesheet" href="/css/products.css" />
+<%- include("../partials/head.ejs") %>
+<link rel="stylesheet" href="/css/cart.css">
 <link rel="stylesheet" href="/css/orders.css">
 
-<%- include("../includes/start.ejs") %>
-
-    <%- include("../includes/header.ejs") %>
-
-    <main class="itemsBox">
-      <h1 class="itemsTitle">Orders</h1>
+</head>
+<body class="box">
+    <%- include("../partials/header.ejs") %>
+    <main class="cart-box">
+      <h1 class="cart-title">Orders</h1>
       <% if (orders.length <= 0) { %>
-      <p class="emptyText">No orders made</p>
+      <p class="font-white">No orders made</p>
       <% } else { %>
-      <div class="ordersBoxColumn">
+      <div class="orders-box">
       <% orders.forEach(order => { %>
-        <h1 class="ordersId">#<%= order._id %></h1>
-        <div class="ordersBoxRow">
-        <% order.products.forEach(p => { %>
-          <p class="ordersItem"><%= p.product.name %> (<%= p.quantity %>)</p>  
-        <% }) %>
+        <div class="order-box">
+          <h1 class="order-id font-white">#<%= order._id %></h1>
+          <div class="order-box-row">
+          <% order.products.forEach(p => { %>
+            <p class="order-item font-white"><%= p.product.name %></p>  
+          <% }) %>
+        </div>
         </div>
       <% })} %>
       </div>
     </main>
 
-<%- include("../includes/end.ejs") %>
+<%- include("../partials/end.ejs") %>

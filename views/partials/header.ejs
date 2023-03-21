@@ -1,26 +1,45 @@
 <header>
     <nav>
       <div>
-        <a class="centerItems" href="/products">
+        <a class="center" href="/shop">
           <p>Shop</p>
-          <span class="<%- path === '/products' ? 'activeDot' : 'hiddenDot' %>"></span>
+          <span class="<%- path === '/products' ? 'dot-active fadein-expand' : 'dot-hidden' %>"></span>
         </a>
-        <a class="centerItems" href="/cart">
+        <% if (isAuthenticated) { %>        
+          <a class="center" href="/cart">
           <p>Cart</p>
-          <span class="<%- path === '/cart' ? 'activeDot' : 'hiddenDot' %>"></span>
+          <span class="<%- path === '/cart' ? 'dot-active fadein-expand' : 'dot-hidden' %>"></span>
         </a>
-        <a class="centerItems" href="/orders">
+        <a class="center" href="/orders">
           <p>Orders</p>
-          <span class="<%- path === '/orders' ? 'activeDot' : 'hiddenDot' %>"></span>
+          <span class="<%- path === '/orders' ? 'dot-active fadein-expand' : 'dot-hidden' %>"></span>
         </a>
-        <a class="centerItems" href="/admin/products">
+        <a class="center" href="/admin/products">
           <p>Admin Products</p>
-          <span class="<%- path === '/admin/add-product' ? 'activeDot' : 'hiddenDot' %>"></span>
+          <span class="<%- path === '/admin/products' ? 'dot-active fadein-expand' : 'dot-hidden' %>"></span>
         </a>
+        <a class="center" href="/admin/info">
+          <p>Server Info</p>
+          <span class="<%- path === '/admin/info' ? 'dot-active fadein-expand' : 'dot-hidden' %>"></span>
+        </a>
+        <% } %>
       </div>
-      <a class="centerItems" href="/logout">
-        <p>Log Out</p>
-         <span class="<%- path === '/admin/products' ? 'activeDot' : 'hiddenDot' %>"></span>
-      </a>
+      <% if (isAuthenticated) { %>
+      <form action="/logout" method="post">
+        <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+        <button class="btn-logout" type="submit">Logout</button>
+      </form>
+      <% } else { %>
+        <div>
+          <a class="center" href="/login">
+            <p class="login-link">Login</p>
+             <span class="<%- path === '/login' ? 'dot-active fadein-expand' : 'dot-hidden' %>"></span>
+          </a>
+          <a class="center" href="/register">
+            <p class="login-link">Signup</p>
+             <span class="<%- path === '/register' ? 'dot-active fadein-expand' : 'dot-hidden' %>"></span>
+          </a>
+        </div>
+        <% } %>
     </nav>
 </header>

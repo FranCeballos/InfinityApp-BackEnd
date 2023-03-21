@@ -1,4 +1,4 @@
-.logInBox {
+.login-box {
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -6,12 +6,12 @@
   gap: 15px;
 }
 
-.logInTitle {
+.login-title {
   font-size: 30px;
   margin-bottom: 10px;
 }
 
-.registerLink {
+.register-link {
   color: black;
   text-decoration: none;
   font-size: 15px;

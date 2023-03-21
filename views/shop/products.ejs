@@ -1,38 +1,59 @@
 <%- include('../partials/head.ejs', {pageTitle: pageTitle}) %>
-
+  <link rel="stylesheet" href="/css/shop.css">
   </head>
 
   <body>
     <%- include('../partials/header.ejs') %>
-    <div class="listBox">
-      <h1 class="listTitle whiteColor">Movies And Series</h1>
+    <div class="list-box">
+      <h1 class="font-white">Movies And Series</h1>
       <% if(list) { %>
-      <div class="listGrid">
+      <div class="list-grid">
         <% list.forEach(item => { %>
+          <% if (isAuthenticated) { %>
         <form action="/cart" method="post">
+          <input type="hidden" name="_csrf" value="<%= csrfToken %>">
           <input type="hidden" value="<%= item._id %>" name="productId">
-          <div class="listItem" onClick="this.parentNode.submit()">
-              <div class="itemDesImgBox">
-                <img class="itemDesImg" src="<%= item.img %>"  alt="<%= item.title %>" />
+          <div class="list-item" onClick="this.parentNode.submit()">
+              <div class="item-img-box">
+                <img class="item-img" src="<%= item.img %>"  alt="<%= item.title %>" />
               </div>
-              <p class="addCartButton">Add to Cart</p>
-              <div class="itemDesBox">
-                <h3 class="whiteColor"><%= item.name %></h3>
-                <div class="itemDesBox2">
-                  <p class="itemDesText whiteColor"><%= item.rating %></p>
-                  <p class="itemDesText whiteColor"><%= item.duration %></p>
-                  <p class="itemDesText whiteColor"><%= item.year %></p>
+              <p class="addcart-btn">Add to Cart</p>
+              <div class="item-info-box">
+                <h3 class="font-white"><%= item.name %></h3>
+                <div class="item-info-box2">
+                  <p class="item-info-text font-white"><%= item.rating %></p>
+                  <p class="item-info-text font-white"><%= item.duration %></p>
+                  <p class="item-info-text font-white"><%= item.year %></p>
                 </div>
-                <div class="itemDesBox2">
-                  <p class="priceText whiteColor">$ <%= item.price %></p>
-                  <p class="itemDesText whiteColor"><%= item.strService %></p>
+                <div class="item-info-box2">
+                  <p class="font-w600 font-white">$ <%= item.price %></p>
+                  <p class="item-info-text font-white"><%= item.strService %></p>
                 </div>
               </div>
           </div>
         </form>
+        <% } else { %>
+          <div class="list-item">
+            <div class="item-img-box">
+              <img class="item-img" src="<%= item.img %>"  alt="<%= item.title %>" />
+            </div>
+            <div class="item-info-box">
+              <h3 class="font-white"><%= item.name %></h3>
+              <div class="item-info-box2">
+                <p class="item-info-text font-white"><%= item.rating %></p>
+                <p class="item-info-text font-white"><%= item.duration %></p>
+                <p class="item-info-text font-white"><%= item.year %></p>
+              </div>
+              <div class="item-info-box2">
+                <p class="font-w600 font-white">$ <%= item.price %></p>
+                <p class="item-info-text font-white"><%= item.strService %></p>
+              </div>
+            </div>
+        </div>
+          <% } %>
         <% })%>
         </div>
       <% } else {%>
-        <h4 class="whiteColor">No products found.</h4>
+        <h4 class="font-white">No products found.</h4>
         <% } %>
 <%- include("../partials/end.ejs") %>

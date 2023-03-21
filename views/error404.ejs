@@ -1,17 +1,11 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Page Not Found</title>
-    <link rel="stylesheet" href="/css/stylesIndex.css" />
-    <link rel="stylesheet" href="/css/stylesLogIn.css" />
+<%- include('./partials/head.ejs', {pageTitle: pageTitle}) %>
+
   </head>
-  <body class="box">
+
+  <body>
+    <%- include('./partials/header.ejs') %>
     <div class="card logInBox">
       <p class="logInTitle">Page Not Found</p>
-      <a class="registerLink" href="/products">Home Page</a>
+      <a class="registerLink" href="/shop">Home Page</a>
     </div>
-  </body>
-</html>
+    <%- include("./partials/end.ejs") %>

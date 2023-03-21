@@ -1,167 +1,50 @@
 * {
-  margin: 0;
   padding: 0;
+  margin: 0;
   box-sizing: border-box;
 }
 
 body {
   font-family: "Montserrat", sans-serif;
+  background-color: #1b1c1e;
   margin-top: 80px;
 }
 
-nav {
-  width: 100%;
-  height: 80px;
-  padding: 10px 50px;
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  align-items: center;
-  gap: 30px;
-  background-color: rgb(103, 103, 103);
-  position: fixed;
-  top: 0;
+input {
+  padding: 0px 10px;
+  text-align: right;
 }
 
-nav div {
+button {
+  font-family: "Montserrat", sans-serif;
+  font-weight: 700;
+  text-transform: uppercase;
+}
+
+.box {
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   justify-content: flex-start;
   align-items: center;
-  gap: 30px;
-}
-
-nav div a,
-nav a {
-  font-weight: 400;
-  text-decoration: none;
-  color: black;
-  transition: 0.1s ease-in;
-}
-
-nav div a:hover,
-nav a:hover {
-  color: rgb(102, 129, 144);
-}
-
-nav div a:active,
-nav a:active {
-  color: rgb(102, 129, 144);
-}
-
-nav div a p,
-nav a p {
-  font-weight: 600;
-}
-
-.centerItems {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  transform: translateY(4px);
-}
-
-.activeDot {
-  height: 5px;
-  width: 5px;
-  background-color: rgb(102, 129, 144);
-  border-radius: 50%;
-  display: inline-block;
-}
-
-.hiddenDot {
-  height: 5px;
-  width: 5px;
-  background-color: rgb(102, 129, 144, 0);
-  border-radius: 50%;
-  display: inline-block;
-}
-
-.centerAlignedRow {
   width: 100%;
-  height: 80vh;
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  align-items: center;
-  gap: 10px;
+  min-height: 100vh;
+  background: #1b1c1e;
+  gap: 50px;
+  padding: 50px;
 }
 
-.centerAlignedColumn {
-  width: 100%;
-  height: 80vh;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  gap: 10px;
-}
-
-.centerTextBox {
-  width: 100%;
-  height: 80vh;
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  align-items: center;
-}
-
-.centerText {
-  text-align: center;
-}
-
-.inputTextSmall {
-  border-radius: 20px;
-  padding: 0px 7px;
-  height: 30px;
-  width: 300px;
-}
-
-.inputTextMedium {
-  border-radius: 20px;
-  padding: 0px 7px;
-  height: 70px;
-  width: 300px;
-}
-
-.textAreaMedium {
-  font: inherit;
-  font-size: 12px;
-  border: 2px solid black;
-  border-radius: 20px;
-  padding: 10px;
-  width: 300px;
-}
-
-.confirmBtn {
-  color: white;
-  padding: 8px 12px;
-  background-color: rgb(35, 127, 192);
-  border-radius: 20px;
-  border: 0px;
-  cursor: pointer;
-}
-
-.confirmBtnBox {
-  width: fit-content;
+.card {
+  background-color: rgb(211, 211, 211);
+  padding: 50px;
+  border-radius: 30px;
+  width: 606.2px;
   height: fit-content;
-  background-color: rgba(24, 98, 151, 0);
-  padding: 2px;
-  border: 3px solid rgba(24, 98, 151, 0);
-  border-radius: 20px;
-  transition: 0.1s ease-in;
 }
 
-.confirmBtnBox:hover {
-  border: 3px solid rgb(35, 127, 192);
-  cursor: pointer;
+.card p {
+  margin-bottom: 10px;
 }
 
-.blueBackground {
-  color: white;
-  padding: 8px 12px;
-  background-color: rgb(35, 127, 192);
-  border-radius: 20px;
-  border: 0px;
+.card-title {
+  margin-bottom: 20px;
 }

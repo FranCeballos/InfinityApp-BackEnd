@@ -1,11 +1,8 @@
-<%- include("./partials/head.ejs") %>
-
+<%- include("../partials/head.ejs") %>
     </head>
     <body class="box">
-        <a class="navButton topLeftPosition" href="/admin/products" >
-            <p>Add product</p>
-          </a>
-        <div class="card">
+        <%- include('../partials/header.ejs') %>
+        <div class="card -onload">
             <h1>Info</h1>
             <p><strong>Input Arguments:</strong> <%= args._.join(", ") %></p>
             <p><strong>OS Platform:</strong> <%= processObj.platform %></p>
@@ -17,4 +14,4 @@
             <p><strong>CPUs:</strong> <%- os.cpus().length %></p>
         </div>
 
-<%- include("./partials/end.ejs") %>
+<%- include("../partials/end.ejs") %>
