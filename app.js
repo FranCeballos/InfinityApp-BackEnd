@@ -14,6 +14,12 @@ const session = require("express-session");
 const MongoStore = require("connect-mongodb-session")(session);
 const csrf = require("csurf");
 const flash = require("connect-flash");
+const multer = require("multer");
+const {
+  fileStorageProductImages,
+  fileStorageAvatars,
+  fileFilter,
+} = require("./utils/multerConfig.js");
 
 const PORT = parseInt(process.argv[2]) || 8080;
 const modoCluster = process.argv[3] === "CLUSTER";
@@ -26,7 +32,6 @@ const User = require("./models/user.js");
 const routerLogIn = require("./routes/auth.js");
 const routerAdmin = require("./routes/admin.js");
 const routerShop = require("./routes/shop.js");
-const routerTests = require("./routes/tests.js");
 const controllerErrors = require("./controllers/errors.js");
 
 //Server, socket and api configuration
@@ -62,8 +67,9 @@ if (modoCluster && cluster.isPrimary) {
   app.set("socketio", io);
   app.use(compression());
   app.use(express.json());
-  app.use(bodyParser.urlencoded({ extended: true }));
-  app.use(express.static("public"));
+  app.use(bodyParser.urlencoded({ extended: false }));
+  app.use(express.static(__dirname + "/public"));
+  app.use("/images", express.static(__dirname + "/images"));
 
   // Sesion
   app.use(
@@ -77,13 +83,15 @@ if (modoCluster && cluster.isPrimary) {
   app.use(csrfProtection);
   app.use(flash());
 
-  app.use((req, _, next) => {
+  app.use((req, res, next) => {
     if (!req.session.user) {
       return next();
     }
     User.findById(req.session.user._id)
       .then((user) => {
         req.user = user;
+        res.locals.avatarImg = req.user.avatar;
+        res.locals.userFirstName = req.user.firstName;
         next();
       })
       .catch((err) => console.log(err));
@@ -99,7 +107,6 @@ if (modoCluster && cluster.isPrimary) {
   app.use(routerLogIn);
   app.use("/admin", routerAdmin);
   app.use(routerShop);
-  app.use("/tests", routerTests);
   app.use(controllerErrors.getError404);
 
   mongoose

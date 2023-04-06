@@ -5,7 +5,7 @@ const transporter = require("../utils/mailer.js");
 const fetch = (...args) =>
   import("node-fetch").then(({ default: fetch }) => fetch(...args));
 
-exports.getRegister = async (req, res) => {
+exports.getRegister = async (req, res, next) => {
   logger.info(`${req.method} ${req.originalUrl}`);
   res.render("login/register", {
     pageTitle: "Signup",
@@ -14,11 +14,13 @@ exports.getRegister = async (req, res) => {
   });
 };
 
-exports.postRegister = async (req, res) => {
+exports.postRegister = async (req, res, next) => {
   logger.info(`${req.method} ${req.originalUrl}`);
   const email = req.body.email;
   const password = req.body.password;
   const body = req.body;
+  const avatarImg = req.file;
+  const avatarImgPath = avatarImg.path;
 
   User.findOne({ email: email })
     .then((user) => {
@@ -40,7 +42,7 @@ exports.postRegister = async (req, res) => {
             phone: body.phone,
             country: body.country,
             password: hashedPassword,
-            avatar: body.avatar,
+            avatar: avatarImgPath,
             cart: { items: [] },
           });
           return newUser.save();
@@ -58,12 +60,15 @@ exports.postRegister = async (req, res) => {
     .catch((err) => console.log(err));
 };
 
-exports.getRegisterSuccess = async (req, res) => {
+exports.getRegisterSuccess = async (req, res, next) => {
   logger.info(`${req.method} ${req.originalUrl}`);
-  res.render("login/successRegister");
+  res.render("login/successRegister", {
+    pageTitle: "SignUp Successful",
+    path: "",
+  });
 };
 
-exports.getLogIn = async (req, res) => {
+exports.getLogIn = async (req, res, next) => {
   logger.info(`${req.method} ${req.originalUrl}`);
   res.render("login/login", {
     pageTitle: "Login",
@@ -72,7 +77,7 @@ exports.getLogIn = async (req, res) => {
   });
 };
 
-exports.postLogIn = async (req, res) => {
+exports.postLogIn = async (req, res, next) => {
   logger.info(`${req.method} ${req.originalUrl}`);
   const email = req.body.email;
   const password = req.body.password;

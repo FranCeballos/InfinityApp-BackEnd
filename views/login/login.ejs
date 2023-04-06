@@ -6,8 +6,8 @@
 
   <body class="box">
     <%- include('../partials/header.ejs') %>
-    <div class="card login-box fadein">
-      <p class="login-title">Welcome</p>
+    <div class="login-box fadein">
+      <p class="login-title font-grey-light">Welcome</p>
       <form class="login-box" action="/login" method="post">
         <input type="hidden" name="_csrf" value="<%= csrfToken %>">
         <input

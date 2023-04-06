@@ -1,19 +1,16 @@
 const logger = require("../logger.js");
-const { faker } = require("@faker-js/faker");
 const Product = require("../models/product");
 const Order = require("../models/order.js");
 const transporter = require("../utils/mailer.js");
 
 // Twilio
-const accountSid = "ACd1e19e7badcbf56ae553755dbb388318";
-const authToken = "14466956c0288b358b7682ac4ed72daa";
-const client = require("twilio")(accountSid, authToken);
+const client = require("twilio")(process.env.TWILIO_ACCOUNT_SID, process.env.TWILIO_AUTH_TOKEN);
 
 exports.getProducts = async (req, res) => {
   logger.info(`${req.method} ${req.originalUrl}`);
   Product.find()
     .then((products) => {
-      res.render("./shop/products", {
+      res.render("shop/products", {
         list: products,
         pageTitle: "Shop",
         path: "/products",
@@ -26,10 +23,10 @@ exports.getProductDetail = (req, res) => {
   const prodId = req.params.productId;
   Product.findById(prodId)
     .then((prod) => {
-      res.render("./shop/product-detail", {
+      res.render("shop/product-detail", {
         pageTitle: prod.name,
         path: "/shop/product-detail",
-        prod: prod,
+        item: prod,
         path: "/products",
       });
     })
@@ -41,7 +38,7 @@ exports.getCart = (req, res) => {
     .populate("cart.items.productId")
     .then((user) => {
       const cartProducts = user.cart.items;
-      res.render("./shop/cart", {
+      res.render("shop/cart", {
         pageTitle: "Cart",
         products: cartProducts,
         path: "/cart",
@@ -74,7 +71,7 @@ exports.postDeleteCartProduct = (req, res) => {
 exports.getOrders = (req, res) => {
   Order.find({ "user.userId": req.user._id })
     .then((orders) => {
-      res.render("./shop/orders", {
+      res.render("shop/orders", {
         pageTitle: "My Orders",
         orders: orders,
         path: "/orders",
@@ -152,18 +149,45 @@ exports.postOrder = (req, res) => {
     .catch((err) => console.log(err));
 };
 
-exports.getProductsTest = async (req, res) => {
-  logger.info(`${req.method} ${req.originalUrl}`);
-  const products = [];
-  for (let i = 1; i <= 5; i++)
-    products.push({
-      name: faker.commerce.product(),
-      rating: "PG",
-      duration: `${faker.random.numeric(3)}min`,
-      year: faker.datatype.datetime().getFullYear(),
-      strService: faker.company.name(),
-      price: faker.commerce.price(1, 50),
-      img: faker.image.abstract(),
-    });
-  res.render("products", { list: products, pageTitle: "Products Test" });
+exports.getProductsByCategory = async (req, res) => {
+  const categoryParam = req.params.categoryName;
+  let categoryName = "";
+  let categoryImagePath = "";
+
+  switch (categoryParam) {
+    case "disney+":
+      categoryName = "Disney+";
+      categoryImagePath = "/images/categories/disney-hero.webp";
+      break;
+    case "netflix":
+      categoryName = "Netflix";
+      categoryImagePath = "/images/categories/netflix-hero.webp";
+      break;
+    case "hbomax":
+      categoryName = "HBO Max";
+      categoryImagePath = "/images/categories/hbomax-hero.webp";
+      break;
+    case "primevideo":
+      categoryName = "Prime Video";
+      categoryImagePath = "/images/categories/primevideo-hero.webp";
+      break;
+    case "paramount+":
+      categoryName = "Paramount+";
+      categoryImagePath = "/images/categories/paramount-hero.webp";
+      break;
+    default:
+      categoryName = categoryParam;
+  }
+
+  Product.find({ strService: categoryName })
+    .then((products) => {
+      res.render(`shop/productsCategory`, {
+        list: products,
+        pageTitle: categoryName,
+        productCategory: categoryName,
+        heroImagePath: categoryImagePath,
+        path: "/products",
+      });
+    })
+    .catch((err) => console.log(err));
 };

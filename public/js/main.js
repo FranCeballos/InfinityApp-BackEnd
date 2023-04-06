@@ -1,12 +1,8 @@
+"use-strict";
 const socket = io();
 
-const yearOptions = [];
-for (let i = 2023; i >= 1900; i--) {
-  yearOptions.push(i);
-}
-
-const yearSelect = document.querySelector("#year");
 const tableItemsBox = document.querySelector(".table-items");
+
 const messagesBox = document.querySelector(".chat-msg-box");
 const messageInput = document.querySelector("#chat");
 const emailInput = document.querySelector("#email");
@@ -15,15 +11,6 @@ const lastnameInput = document.querySelector("#lastname");
 const ageInput = document.querySelector("#age");
 const usernameInput = document.querySelector("#username");
 const avatarInput = document.querySelector("#avatar");
-const greetingText = document.querySelector(".greeting-text");
-
-yearOptions.forEach((year) => {
-  let opt = document.createElement("option");
-  opt.value = year;
-
-  opt.innerHTML = year;
-  yearSelect.appendChild(opt);
-});
 
 /* document.querySelector(".sendMessageButton").addEventListener("click", (e) => {
   e.preventDefault();
@@ -74,24 +61,30 @@ yearOptions.forEach((year) => {
 }); */
 
 socket.on("products", (data) => {
-  tableItemsBox.innerHTML = "";
+  console.log(data);
+  tableItemsBox.innerHTML = ``;
   data.forEach((item) => {
     tableItemsBox.insertAdjacentHTML(
       "beforeend",
       `
-      <tr>
-        <td>${item.name}</td>
-        <td>$${item.price}</td>
-        <td>
+      <div class="table-row">
+        <div class="table-name font-grey-light">${item.name}</div>
+        <div>
           <div class="table-img-box">
-            <img class="table-img" src="${item.img}" alt="${item.name}" />
+            <img class="table-img" src="/${item.img}" alt="${item.name}" />
           </div>
-        </td>
-        <td><form action="/admin/product-delete" method="post">
-        <input type="hidden" value=${item._id} name="productId"></input>
-        <button type="submit" class="btn-delete">-</button>
-        </form></td>
-      </tr>
+        </div>
+        <a href="/admin/edit-product/${item._id}?edit=true">
+          <button class="btn-delete">Edit</button>
+        </a>
+        <div class="table-delete-btn-box">
+          <form action="/admin/product-delete" method="post">
+            <input type="hidden" value=${item._id} name="productId">
+            <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+            <button type="submit" class="btn-delete">-</button>
+          </form>
+        </div>
+      </div>
     `
     );
   });

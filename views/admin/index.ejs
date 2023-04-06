@@ -6,130 +6,33 @@
 
   <body class="box">
     <%- include('../partials/header.ejs') %>
-    <!-- Greeting -->
-    <div class="card">
-      <h1 class="greeting-text">Welcome, <%= name %></h1>
-    </div>
-    <!-- Add new product form -->
-    <div class="card">
-      <h1 class="form-title card-title">Add new product</h1>
-      <form action="/admin/products" method="post" class="form-box">
-        <input type="hidden" name="_csrf" value="<%= csrfToken %>">
-        <!-- Name -->
-        <div>
-          <label for="name">Name:</label>
-          <input
-            id="name"
-            name="name"
-            class="form-input"
-            type="text"
-            required
-          />
-        </div>
-
-        <!-- Rating -->
-        <div>
-          <label for="rating">Rating:</label>
-          <select
-            id="rating"
-            name="rating"
-            type="text"
-            class="form-select"
-            required
-          >
-            <option value="default" selected>Select rating</option>
-            <option value="G">G</option>
-            <option value="PG">PG</option>
-            <option value="PG-13">PG-13</option>
-            <option value="R">R</option>
-            <option value="NC-17">NC-17</option>
-          </select>
-        </div>
-
-        <!-- Time Duration -->
-        <div>
-          <fieldset class="form-fieldset-duration">
-            <legend>Duration</legend>
-            <label for="hours">Hours:</label>
-            <input
-              id="hours"
-              name="hours"
-              class="form-input"
-              type="number"
-              required
-            />
-            <label for="minutes">Minutes:</label>
-            <input
-              id="minutes"
-              name="minutes"
-              class="form-input"
-              type="number"
-              required
-            />
-          </fieldset>
-        </div>
-
-        <!-- Year of Release -->
-        <div>
-          <label for="year">Year of Release:</label>
-          <select
-            id="year"
-            name="year"
-            type="text"
-            class="form-select"
-            required
-          >
-            <option value="default" selected>Select year of release</option>
-          </select>
-        </div>
-
-        <!-- Streaming Service -->
-        <div>
-          <label for="strService">Streaming Service:</label>
-          <select
-            id="strService"
-            name="strService"
-            type="text"
-            class="form-select"
-            required
-          >
-            <option value="default" selected>Select streaming service</option>
-            <option value="Disney+">Disney+</option>
-            <option value="Netflix">Netflix</option>
-            <option value="HBO Max">HBO Max</option>
-            <option value="Amazon Prime">Amazon Prime Video</option>
-            <option value="Paramount+">Paramount+</option>
-          </select>
-        </div>
-
-        <!-- Price -->
-        <div>
-          <label for="price">Price:</label>
-          <input
-            id="price"
-            name="price"
-            class="form-input"
-            type="text"
-            required
-          />
-        </div>
-
-        <!-- Image -->
-        <div>
-          <label for="img">Image:</label>
-          <input id="img" name="img" type="url" class="form-input" />
-        </div>
-
-        <!-- Submit Button -->
-        <button type="submit" class="form-btn">Add product</button>
-      </form>
-    </div>
-
     <!-- Catalog -->
-    <div class="card">
-      <h1 class="form-title card-title">Catalog</h1>
-      <table class="table-items"></table>
+    <h1 class="form-title font-grey-light">Catalog</h1>
+    <a class="btn__add-product" href="/admin/add-product">
+      <button class="btn-primary">+</button>
+    </a>
+    <div class="table-items">
+      <% products.forEach(product => { %> 
+        <div class="table-row">
+          <p class="table-name font-grey-light"><%= product.name %></p>
+          <div>
+            <div class="table-img-box">
+              <img class="table-img" src="/<%= product.img %>" alt="<%= product.name %>" />
+            </div>
+          </div>
+          <a href="/admin/edit-product/<%= product._id %>?edit=true">
+            <button class="btn-primary">Edit</button>
+          </a>
+          <form action="/admin/product-delete" method="post">
+            <input type="hidden" value="<%= product._id %>" name="productId">
+            <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+            <button type="submit" class="btn-delete">-</button>
+          </form>
+        </div>
+      <% }) %>
     </div>
+
+    
 
     <!-- Chat -->
     <!-- <div class="card">
@@ -201,6 +104,6 @@
       </form>
     </div> -->
     <script src="/socket.io/socket.io.js"></script>
-    <script type="module" src="../js/main.js"></script>
+    <script type="module" src="/js/main.js"></script>
   </body>
 </html>

@@ -1,13 +1,18 @@
 const express = require("express");
 const router = express.Router();
-const passport = require("passport");
+const isAuth = require("../utils/is-auth.js");
+const { uploadAvatarImage } = require("../utils/multerConfig.js");
 
 const controllerLogIn = require("../controllers/auth.js");
 
 /* -- REGISTER -- */
 router.get("/register", controllerLogIn.getRegister);
 
-router.post("/register", controllerLogIn.postRegister);
+router.post(
+  "/register",
+  uploadAvatarImage.single("avatar"),
+  controllerLogIn.postRegister
+);
 
 router.get("/register-success", controllerLogIn.getRegisterSuccess);
 
@@ -17,6 +22,6 @@ router.get("/login", controllerLogIn.getLogIn);
 router.post("/login", controllerLogIn.postLogIn);
 
 /* -- LOGOUT -- */
-router.post("/logout", controllerLogIn.postLogout);
+router.post("/logout", isAuth, controllerLogIn.postLogout);
 
 module.exports = router;

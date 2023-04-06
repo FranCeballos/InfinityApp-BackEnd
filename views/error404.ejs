@@ -1,11 +1,11 @@
 <%- include('./partials/head.ejs', {pageTitle: pageTitle}) %>
-
+  <link rel="stylesheet" href="/css/error.css">
   </head>
 
-  <body>
+  <body class="box">
     <%- include('./partials/header.ejs') %>
-    <div class="card logInBox">
-      <p class="logInTitle">Page Not Found</p>
-      <a class="registerLink" href="/shop">Home Page</a>
-    </div>
+      <p class="error__title font-grey-light">Page Not Found</p>
+      <a href="/shop"> 
+        <button class="btn-primary">Home Page</button>
+      </a>
     <%- include("./partials/end.ejs") %>

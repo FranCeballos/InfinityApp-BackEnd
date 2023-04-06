@@ -1,0 +1,41 @@
+<%- include('../partials/head.ejs', {pageTitle: pageTitle}) %>
+  <link rel="stylesheet" href="/css/shop.css">
+  </head>
+
+  <body>
+    <%- include('../partials/header.ejs') %>
+    <div class="list-image-box">
+      <h1 class="font-white list-image-text"><%= productCategory %></h1>
+      <img class="list-image" src="<%= heroImagePath %>" alt="Category Hero Image">
+    </div>
+    <% if(list) { %>
+      <div class="list-box">
+        <div class="list-grid">
+          <% list.forEach(item => { %>
+          <a class="list-item__link" href="/shop/<%= item._id %>">  
+            <div class="list-item" onClick="this.parentNode.submit()">
+                <div class="item-img-box">
+                  <img class="item-img" src="/<%= item.img %>"  alt="<%= item.title %>" />
+                </div>
+                <p class="view-detail-btn">View Details</p>
+                <div class="item-info-box">
+                  <h3 class="font-grey-light"><%= item.name %></h3>
+                  <div class="item-info-box2">
+                    <p class="item-info-text font-grey-light"><%= item.rating %></p>
+                    <p class="item-info-text font-grey-light"><%= item.duration %></p>
+                    <p class="item-info-text font-grey-light"><%= item.year %></p>
+                  </div>
+                  <div class="item-info-box2">
+                    <p class="font-w600 font-grey-light">$ <%= item.price %></p>
+                    <p class="item-info-text font-grey-light"><%= item.strService %></p>
+                  </div>
+                </div>
+            </div>
+          </a>
+        <% })%>
+        </div>
+      <% } else {%>
+        <h4 class="font-grey-light">No products found.</h4>
+      </div>
+      <% } %>
+<%- include("../partials/end.ejs") %>

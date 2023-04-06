@@ -1,19 +1,13 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>LogIn</title>
-    <link rel="stylesheet" href="/css/stylesIndex.css" />
-    <link rel="stylesheet" href="/css/stylesLogIn.css" />
+<%- include('../partials/head.ejs', {pageTitle: pageTitle}) %>
+<link rel="stylesheet" href="/css/login.css">
+<link rel="stylesheet" href="/css/form.css">
+
   </head>
+
   <body class="box">
-    <div class="card logInBox">
-      <p class="logInTitle">✅ SignUp successful</p>
-      <button class="formButtonStyle">
-        <a class="formButtonText" href="/login">Log In</a>
-      </button>
+    <%- include('../partials/header.ejs') %>
+    <div class="login-box fadein">
+      <p class="login-title font-grey-light">SignUp Successful ✅</p>
+      <a href="/login"><button class="btn-primary">LogIn</button></a>
     </div>
-  </body>
-</html>
+    <%- include("../partials/end.ejs") %>

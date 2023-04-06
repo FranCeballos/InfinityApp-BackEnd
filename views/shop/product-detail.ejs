@@ -1,0 +1,31 @@
+<%- include('../partials/head.ejs', {pageTitle: pageTitle}) %>
+  <link rel="stylesheet" href="/css/shop.css">
+  <link rel="stylesheet" href="/css/product-detail.css">
+  </head>
+
+  <body class="box">
+    <%- include('../partials/header.ejs') %>
+    <% if (item) { %>
+        <div class="detail__box">
+            <div class="detail__image-box">
+                <img src="/<%= item.img %>" alt="<%= item.name %>" class="detail__image">
+            </div>
+            <div class="detail__info-box column-flex-direction">
+                <h1 class="detail__info-name font-grey-light"><%= item.name %></h1>
+                <h2 class="detail__info-streaming-service font-grey-light"><%= item.strService %></h2>
+                <div class="detail__info-box row-flex-direction">
+                    <p class="detail__info-year font-grey-light"><%= item.year %></p>
+                    <p class="detail__info-duration font-grey-light"><%= item.duration %></p>
+                </div>
+                <p class="detail__info-price font-grey-light">$ <%= item.price %></p>
+                <form action="/cart" method="post">
+                    <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+                    <input type="hidden" value="<%= item._id %>" name="productId">
+                    <div class="btn-primary-box"><button type="submit" class="btn-primary">Add To Cart</button></div>
+                </form>
+            </div>
+      </div>
+    <% } else { %>
+        <h1>Item info not found.</h1>
+    <% } %>
+<%- include("../partials/end.ejs") %>

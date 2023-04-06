@@ -8,15 +8,15 @@
     <main class="cart-box">
       <h1 class="cart-title">Orders</h1>
       <% if (orders.length <= 0) { %>
-      <p class="font-white">No orders made</p>
+      <p class="font-grey-light">No orders made</p>
       <% } else { %>
       <div class="orders-box">
       <% orders.forEach(order => { %>
         <div class="order-box">
-          <h1 class="order-id font-white">#<%= order._id %></h1>
+          <h1 class="order-id font-grey-light">#<%= order._id %></h1>
           <div class="order-box-row">
           <% order.products.forEach(p => { %>
-            <p class="order-item font-white"><%= p.product.name %></p>  
+            <p class="order-item font-grey-light"><%= p.product.name %></p>  
           <% }) %>
         </div>
         </div>

@@ -1,12 +1,29 @@
-.greeting-text {
-  text-align: center;
-  margin-bottom: 0;
+.btn__add-product {
+  margin-bottom: 20px;
 }
 
 .table-items {
-  width: 100%;
-  text-align: center;
+  width: auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-end;
   padding: 10px;
+  align-self: center;
+}
+
+.table-row {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+  align-items: center;
+  max-width: 500px;
+  margin-bottom: 10px;
+  gap: 40px;
+}
+
+.table-name {
+  justify-self: flex-start;
 }
 
 .table-img-box {
@@ -14,6 +31,7 @@
   height: 90px;
   margin-left: auto;
   margin-right: auto;
+  justify-self: flex-start;
 }
 
 .table-img {
@@ -27,7 +45,6 @@
   padding: 5px 10px;
   border-radius: 100px;
   border: 1px solid rgba(0, 0, 0, 0);
-  cursor: pointer;
   transition: all 0.3s ease-in;
 }
 

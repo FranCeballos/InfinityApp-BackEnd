@@ -7,10 +7,9 @@
   </head>
   <body class="box">
     <%- include('../partials/header.ejs') %>
-    <div class="card login-box fadein">
-      <p class="login-title">Register</p>
-      <form class="login-box" action="/register" method="post">
-        <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+    <div class="login-box fadein">
+      <p class="login-title font-grey-light">Register</p>
+      <form class="login-box" enctype="multipart/form-data" action="/register?_csrf=<%= csrfToken %>" method="post">
         <input
           id="firstName"
           name="firstName"
@@ -78,11 +77,12 @@
           placeholder="Password"
           required
         />
+        <label class="font-grey-light" for="avatar">Avatar:</label>
         <input
           id="avatar"
           name="avatar"
-          class="form-input"
-          type="text"
+          class="form__file"
+          type="file"
           placeholder="Avatar URL"
           required
         />

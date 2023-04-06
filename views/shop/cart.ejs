@@ -16,30 +16,30 @@
               <img class="cart-img" src="<%= prod.productId.img %>" alt="<%= prod.productId.name %>" >
             </div>
             <div class="cart-column">
-              <p class="cart-name font-white"><%= prod.productId.name %></p>
-              <p class="font-white">$ <%= prod.productId.price %></p>
-              <!-- <p class="font-white">Qty: <%= prod.quantity %></p> -->
+              <p class="cart-name font-grey-light"><%= prod.productId.name %></p>
+              <p class="font-grey-light">$ <%= prod.productId.price %></p>
+              <!-- <p class="font-grey-light">Qty: <%= prod.quantity %></p> -->
             </div>
             <div class="cart-subbox">
               <form action="/cart-delete-item" method="post">
                 <input type="hidden" name="_csrf" value="<%= csrfToken %>">
                   <input type="hidden" value="<%= prod.productId._id %>" name="productId" >
                   <div class="btn-delete-box">
-                    <button class="btn-delete font-white" type="submit">-</button>
+                    <button class="btn-delete font-grey-light" type="submit">-</button>
                   </div>
               </form>
             </div>
           </div>
         <% }) %>
-        <div class="btn-order-box">
+        <div class="btn-primary-box">
           <form method="post" action="/create-order">
             <input type="hidden" name="_csrf" value="<%= csrfToken %>">
-            <button class="btn-order font-white" type="submit">Order</button>
+            <button class="btn-primary font-grey-light" type="submit">Order</button>
           </form>
         </div>
       </div>
       <% } else { %>
-        <p class="font-white">Cart empty</p>
+        <p class="font-grey-light">Cart empty</p>
       <% } %>    
     </main>
 

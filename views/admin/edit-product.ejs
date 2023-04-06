@@ -1,0 +1,146 @@
+<%- include('../partials/head.ejs', {pageTitle: pageTitle}) %>
+<link rel="stylesheet" href="/css/index.css">
+<link rel="stylesheet" href="/css/form.css">
+
+  </head>
+
+  <body class="box">
+    <%- include('../partials/header.ejs') %>
+    <!-- Add new product form -->
+    <div>
+      <h1 class="form-title card-title font-grey-light"><%= editMode ? "Edit Product" : "Add new product" %></h1>
+      <form action="/admin/<% if (editMode) { %>edit-product/<%=product._id%>?_csrf=<%= csrfToken %><% } else { %>add-product?_csrf=<%= csrfToken %><% } %>" 
+        enctype="multipart/form-data"
+        method="post" class="form-box">
+        <% if (editMode) { %>
+          <input type="hidden" name="userId" value="<%= product.userId %>">
+        <% } %>
+        <!-- Name -->
+        <div>
+          <label for="name" class="font-grey-light">Name:</label>
+          <input
+            id="name"
+            name="name"
+            class="form-input"
+            type="text"
+            value="<% if (editMode) { %><%= product.name %><% } %>"
+            required
+          />
+        </div>
+
+        <!-- Rating -->
+        <div>
+          <label for="rating" class="font-grey-light">Rating:</label>
+          <select
+            id="rating"
+            name="rating"
+            type="text"
+            class="form-select"
+            value="<% if (editMode) { %><%= product.rating %><% } %>"
+            required
+          >
+            <option value="default" selected>Select rating</option>
+            <option value="G">G</option>
+            <option value="PG">PG</option>
+            <option value="PG-13">PG-13</option>
+            <option value="R">R</option>
+            <option value="NC-17">NC-17</option>
+          </select>
+        </div>
+
+        <!-- Time Duration -->
+        <div>
+          <fieldset class="form-fieldset-duration">
+            <legend class="font-grey-light">Duration</legend>
+            <label for="hours" class="font-grey-light">Hours:</label>
+            <input
+              id="hours"
+              name="hours"
+              class="form-input"
+              type="number"
+              value="<% if (editMode) { %><%= hours %><% } %>"
+              required
+            />
+            <label for="minutes" class="font-grey-light">Minutes:</label>
+            <input
+              id="minutes"
+              name="minutes"
+              class="form-input"
+              type="number"
+              value="<% if (editMode) { %><%= minutes %><% } %>"
+              required
+            />
+          </fieldset>
+        </div>
+
+        <!-- Year of Release -->
+        <div>
+          <label for="year" class="font-grey-light">Year of Release:</label>
+          <select
+            id="year"
+            name="year"
+            type="text"
+            class="form-select"
+            value="<% if (editMode) { %><%= product.year %><% } %>"
+            required
+          >
+            <option value="default" selected>Select year of release</option>
+          </select>
+        </div>
+
+        <!-- Streaming Service -->
+        <div>
+          <label for="strService" class="font-grey-light">Streaming Service:</label>
+          <select
+            id="strService"
+            name="strService"
+            type="text"
+            class="form-select"
+            value="<% if (editMode) { %><%= product.strService %><% } %>"
+            required
+          >
+            <option value="default" selected>Select streaming service</option>
+            <option value="Disney+">Disney+</option>
+            <option value="Netflix">Netflix</option>
+            <option value="HBO Max">HBO Max</option>
+            <option value="Prime Video">Amazon Prime Video</option>
+            <option value="Paramount+">Paramount+</option>
+          </select>
+        </div>
+
+        <!-- Price -->
+        <div>
+          <label for="price" class="font-grey-light">Price:</label>
+          <input
+            id="price"
+            name="price"
+            class="form-input"
+            type="text"
+            value="<% if (editMode) { %><%= product.price %><% } %>"
+            required
+          />
+        </div>
+
+        <!-- Image -->
+        <div>
+          <label for="img" class="font-grey-light">Image (webp format):</label>
+          <input id="img" name="img" type="file" class="form__file" />
+        </div>
+
+        <% if (editMode) { %>
+        <div class="form__file-previous-box">
+            <p class="form__file-previous-text font-grey-light">Current Image:</p>
+            <div class="form__image-previous-box">
+                <img class="form__image-previous" src="/<%= product.img %>" alt="<%= product.name %>">
+            </div>
+        </div>
+        <% } %>
+
+        <!-- Submit Button -->
+        <button type="submit" class="form-btn"><%= editMode ? "Edit Product" : "Add Product" %></button>
+      </form>
+    </div>
+    <script src="/socket.io/socket.io.js"></script>
+    <script type="module" src="/js/add-product.js"></script>
+  </body>
+</html>

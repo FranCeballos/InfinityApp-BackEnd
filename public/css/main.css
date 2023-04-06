@@ -19,6 +19,7 @@ button {
   font-family: "Montserrat", sans-serif;
   font-weight: 700;
   text-transform: uppercase;
+  cursor: pointer;
 }
 
 .box {
@@ -29,15 +30,12 @@ button {
   width: 100%;
   min-height: 100vh;
   background: #1b1c1e;
-  gap: 50px;
   padding: 50px;
 }
 
 .card {
-  background-color: rgb(211, 211, 211);
-  padding: 50px;
-  border-radius: 30px;
-  width: 606.2px;
+  padding: 20px;
+  width: 600px;
   height: fit-content;
 }
 
@@ -45,6 +43,42 @@ button {
   margin-bottom: 10px;
 }
 
-.card-title {
-  margin-bottom: 20px;
+.btn-primary-box {
+  margin-top: 30px;
+}
+
+.btn-primary {
+  padding: 10px 10px;
+  font-size: 20px;
+  background-color: rgb(102, 129, 144);
+  border: 0px;
+  border-radius: 10px;
+  cursor: pointer;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.737);
+  transition: 0.3s ease-out;
+  color: white;
+}
+
+.btn-primary:hover {
+  transform: scale(1.02);
+  box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.737);
+}
+
+.btn-primary:active {
+  transform: scale(0.97);
+  box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.737);
+}
+
+.font-grey-light {
+  color: rgb(216, 216, 216);
+  text-shadow: 1px black;
+}
+
+.font-white {
+  color: white;
+  text-shadow: 5px black;
+}
+
+.font-w600 {
+  font-weight: 600;
 }

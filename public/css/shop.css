@@ -1,3 +1,11 @@
+.list-grid {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  width: 100%;
+  gap: 10px;
+  row-gap: 20px;
+}
+
 .list-box {
   display: flex;
   flex-direction: column;
@@ -8,12 +16,24 @@
   gap: 40px;
 }
 
-.list-grid {
-  display: grid;
-  grid-template-columns: repeat(5, 1fr);
-  width: 1200px;
-  gap: 10px;
-  row-gap: 20px;
+.list-image-box {
+  width: 100%;
+  height: 200px;
+  position: relative;
+}
+
+.list-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+}
+
+.list-image-text {
+  top: 50%;
+  left: 50%;
+  position: absolute;
+  transform: translate(-50%, -50%);
 }
 
 .list-item {
@@ -21,7 +41,7 @@
   flex-direction: column;
   justify-content: flex-end;
   align-items: flex-start;
-  width: 225px;
+  width: 100%;
   height: 300px;
   border-radius: 20px;
   transition: all 0.2s ease-out;
@@ -33,7 +53,7 @@
   cursor: pointer;
 }
 
-.list-item:hover .addcart-btn {
+.list-item:hover .view-detail-btn {
   opacity: 1;
 }
 
@@ -41,7 +61,7 @@
   transform: scale(1.03);
 }
 
-.addcart-btn {
+.view-detail-btn {
   opacity: 0;
   transition: all 0.1s ease-out;
   color: white;
@@ -56,6 +76,10 @@
   transform: translate(-50%, -50%);
   cursor: pointer;
   text-shadow: 0px 0px 20px black;
+}
+
+.list-item__link {
+  text-decoration: none;
 }
 
 .item-img-box {
@@ -106,11 +130,37 @@
   font-size: 13px;
 }
 
-.font-white {
-  color: rgb(216, 216, 216);
-  text-shadow: 1px black;
+.category__box {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  align-items: center;
+  margin-bottom: 40px;
 }
 
-.font-w600 {
-  font-weight: 600;
+.category__item-box {
+  width: 220px;
+  height: 110px;
+  border-radius: 20px;
+  box-shadow: 0px 0px 8px black;
+  transition: all 0.2s ease-out;
+  cursor: pointer;
+}
+
+.category__item-box img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 20px;
+}
+
+.category__item-box:hover {
+  transform: scale(1.05);
+  box-shadow: 0px 0px 10px black;
+}
+
+.category__item-box:active {
+  transform: scale(0.99);
+  box-shadow: 0px 0px 5px black;
 }

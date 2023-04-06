@@ -18,14 +18,14 @@
           <p>Admin Products</p>
           <span class="<%- path === '/admin/products' ? 'dot-active fadein-expand' : 'dot-hidden' %>"></span>
         </a>
-        <a class="center" href="/admin/info">
-          <p>Server Info</p>
-          <span class="<%- path === '/admin/info' ? 'dot-active fadein-expand' : 'dot-hidden' %>"></span>
-        </a>
         <% } %>
       </div>
       <% if (isAuthenticated) { %>
-      <form action="/logout" method="post">
+        <form class="right-nav__box" action="/logout" method="post">
+        <p class="avatar__name font-grey-light"><%= userFirstName %></p>
+        <div class="avatar__box">
+          <img src="/<%= avatarImg %>" alt="Avatar Image" class="avatar">
+        </div>
         <input type="hidden" name="_csrf" value="<%= csrfToken %>">
         <button class="btn-logout" type="submit">Logout</button>
       </form>

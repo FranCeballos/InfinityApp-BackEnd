@@ -7,7 +7,10 @@ const shopController = require("../controllers/shop.js");
 
 router.get("/shop", shopController.getProducts);
 
-router.get("/products-test", shopController.getProductsTest);
+router.get(
+  "/shop/category/:categoryName",
+  shopController.getProductsByCategory
+);
 
 router.get("/shop/:productId", shopController.getProductDetail);
 
