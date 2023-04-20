@@ -1,0 +1,36 @@
+<%- include("../partials/head.ejs") %>
+<link rel="stylesheet" href="/css/index.css">
+<link rel="stylesheet" href="/css/form.css">
+<link rel="stylesheet" href="/css/chat.css">
+
+</head>
+<body class="box">
+
+    <%- include("../partials/header.ejs") %>
+    <!-- Chat -->
+    <h1 class="form-title font-grey-light">Chat</h1>
+    <div class="chat__box">
+      <div class="chat__msgs-box"></div>
+      <form class="form-box chat-form">
+        <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+        <input type="hidden" name="userId" value="<%= userId %>">
+        <div class="">
+          <input
+            id="question"
+            name="question"
+            class="form-input"
+            type="text"
+            placeholder="Question"
+            required
+          />
+          <button type="submit" class="form-btn chat__btn">
+            Ask >
+          </button>
+        </div>
+      </form>
+    </div>
+    </main>
+
+    <script src="/socket.io/socket.io.js"></script>
+    <script type="module" src="/js/chat.js"></script>
+<%- include("../partials/end.ejs") %>

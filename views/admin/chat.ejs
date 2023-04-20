@@ -1,0 +1,19 @@
+<%- include("../partials/head.ejs") %>
+<link rel="stylesheet" href="/css/index.css">
+<link rel="stylesheet" href="/css/form.css">
+<link rel="stylesheet" href="/css/chat.css">
+
+</head>
+<body class="box">
+
+    <%- include("../partials/header.ejs") %>
+    <!-- Chat -->
+    <h1 class="form-title font-grey-light">Chat</h1>
+    <div class="chat__box">
+      <div class="chat__msgs-box"></div>
+    </div>
+    </main>
+
+    <script src="/socket.io/socket.io.js"></script>
+    <script type="module" src="/js/chat-admin.js"></script>
+<%- include("../partials/end.ejs") %>

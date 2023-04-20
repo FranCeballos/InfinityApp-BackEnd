@@ -18,12 +18,12 @@ yearOptions.forEach((year) => {
   yearSelectElement.appendChild(yearOptionElement);
 });
 
-socket.on("products", (data) => {
-const rating = data.rating;
-const strService = data.strService;
-const year = data.year;
+socket.on("product", (data) => {
+  const rating = data.rating;
+  const strService = data.strService;
+  const year = data.year;
 
-ratingSelectElement.value = rating;
-yearSelectElement.value = year;
-streamingServiceSelectElement.value = strService;
-})
+  ratingSelectElement.value = rating;
+  yearSelectElement.value = year;
+  streamingServiceSelectElement.value = strService;
+});

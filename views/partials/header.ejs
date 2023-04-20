@@ -14,10 +14,21 @@
           <p>Orders</p>
           <span class="<%- path === '/orders' ? 'dot-active fadein-expand' : 'dot-hidden' %>"></span>
         </a>
-        <a class="center" href="/admin/products">
-          <p>Admin Products</p>
-          <span class="<%- path === '/admin/products' ? 'dot-active fadein-expand' : 'dot-hidden' %>"></span>
-        </a>
+        <% if (isAdmin) { %>
+          <a class="center" href="/admin/products">
+            <p>Admin Products</p>
+            <span class="<%- path === '/admin/products' ? 'dot-active fadein-expand' : 'dot-hidden' %>"></span>
+          </a>
+          <a class="center" href="/admin/chat">
+            <p>Chat</p>
+            <span class="<%- path === '/chat' ? 'dot-active fadein-expand' : 'dot-hidden' %>"></span>
+          </a>
+        <% } else { %>
+          <a class="center" href="/chat">
+            <p>Chat</p>
+            <span class="<%- path === '/chat' ? 'dot-active fadein-expand' : 'dot-hidden' %>"></span>
+          </a>
+        <% } %>
         <% } %>
       </div>
       <% if (isAuthenticated) { %>
