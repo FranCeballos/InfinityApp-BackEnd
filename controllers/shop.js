@@ -39,12 +39,16 @@ exports.getProductDetail = async (req, res, next) => {
   logger.info(`${req.method} ${req.originalUrl}`);
   const prodId = req.params.productId;
   try {
+    const isOwned = req.user.isOwnedById(prodId);
+    const isInCart = req.user.isInCartById(prodId);
     const product = await Product.findById(prodId);
     res.render("shop/product-detail", {
       pageTitle: product.name,
       path: "/shop/product-detail",
       item: product,
       path: "/products",
+      isOwned: isOwned,
+      isInCart: isInCart,
     });
   } catch (err) {
     console.log(err);
@@ -69,9 +73,13 @@ exports.getCart = async (req, res, next) => {
 exports.postCart = async (req, res, next) => {
   logger.info(`${req.method} ${req.originalUrl}`);
   const prodId = req.body.productId;
+  const isOwned = req.user.isOwnedById(prodId);
+  const isInCart = req.user.isInCartById(prodId);
   try {
-    const product = await Product.findById(prodId);
-    await req.user.addToCart(product);
+    if (!isOwned && !isInCart) {
+      const product = await Product.findById(prodId);
+      await req.user.addToCart(product);
+    }
     res.redirect("/cart");
   } catch (err) {
     console.log(err);
@@ -81,8 +89,12 @@ exports.postCart = async (req, res, next) => {
 exports.postDeleteCartProduct = async (req, res, next) => {
   logger.info(`${req.method} ${req.originalUrl}`);
   const prodId = req.body.productId;
+  const isOwned = req.user.isOwnedById(prodId);
+  const isInCart = req.user.isInCartById(prodId);
   try {
-    await req.user.deleteFromCart(prodId);
+    if (!isOwned && isInCart) {
+      await req.user.deleteFromCart(prodId);
+    }
     res.redirect("/cart");
   } catch (err) {
     console.log(err);
@@ -110,7 +122,6 @@ exports.postOrder = async (req, res, next) => {
     const user = await req.user.populate("cart.items.productId");
     const products = user.cart.items.map((i) => {
       return {
-        quantity: i.quantity,
         product: { ...i.productId._doc },
       };
     });
@@ -122,7 +133,9 @@ exports.postOrder = async (req, res, next) => {
       },
       products: products,
     });
-    await order.save();
+    const newOrder = await order.save();
+    await req.user.addOrder(newOrder);
+    await req.user.addItemsToBought();
     await req.user.clearCart();
 
     res.redirect("/orders");

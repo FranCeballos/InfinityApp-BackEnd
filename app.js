@@ -16,7 +16,6 @@ const helmet = require("helmet");
 
 // Models imports
 const User = require("./models/user.js");
-const Message = require("./models/message.js");
 
 // Utils imports
 const logger = require("./logger.js");

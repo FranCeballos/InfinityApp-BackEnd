@@ -47,27 +47,35 @@ const userSchema = new Schema({
           ref: "Product",
           required: true,
         },
-        quantity: { type: Number, required: true },
       },
     ],
   },
+  orders: [
+    {
+      orderId: {
+        type: mongoose.Types.ObjectId,
+        ref: "Order",
+        required: true,
+      },
+    },
+  ],
+  bought: [
+    {
+      productId: {
+        type: mongoose.Types.ObjectId,
+        ref: "Product",
+        required: true,
+      },
+    },
+  ],
 });
 
 userSchema.methods.addToCart = function (product) {
-  const cartProductIndex = this.cart.items.findIndex((cp) => {
-    return cp.productId.toString() === product._id.toString();
-  });
-  let newQuantity = 1;
   const updatedCartItems = [...this.cart.items];
-  if (cartProductIndex >= 0) {
-    newQuantity = this.cart.items[cartProductIndex].quantity + 1;
-    updatedCartItems[cartProductIndex].quantity = newQuantity;
-  } else {
-    updatedCartItems.push({
-      productId: product._id,
-      quantity: newQuantity,
-    });
-  }
+  updatedCartItems.push({
+    productId: product._id,
+  });
+
   const updatedCart = {
     items: updatedCartItems,
   };
@@ -83,16 +91,32 @@ userSchema.methods.deleteFromCart = function (prodId) {
   return this.save();
 };
 
-userSchema.methods.addOrder = function () {
-  const updatedOrders = this.orders;
-  const order = {
-    items: this.cart.items,
-    userId: this._id,
+userSchema.methods.addOrder = function (orderData) {
+  const updatedOrders = [...this.orders];
+  const newOrderId = {
+    orderId: orderData._id,
   };
-  updatedOrders.push(order);
+  updatedOrders.push(newOrderId);
   this.orders = updatedOrders;
-  this.cart = { items: [] };
   return this.save();
+};
+
+userSchema.methods.addItemsToBought = function () {
+  const updatedBought = [...this.bought, ...this.cart.items];
+  this.bought = updatedBought;
+  return this.save();
+};
+
+userSchema.methods.isOwnedById = function (productId) {
+  return [...this.bought].some(
+    (item) => item.productId.toString() === productId.toString()
+  );
+};
+
+userSchema.methods.isInCartById = function (productId) {
+  return [...this.cart.items].some(
+    (item) => item.productId.toString() === productId.toString()
+  );
 };
 
 userSchema.methods.clearCart = function () {
@@ -101,3 +125,5 @@ userSchema.methods.clearCart = function () {
 };
 
 module.exports = mongoose.model("User", userSchema);
+
+// 642db02983c6cceda13dd346
