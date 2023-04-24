@@ -18,6 +18,9 @@ const transporter = require("../utils/mailer.js");
 // CONTROLLERS
 exports.getHome = (req, res, next) => {
   logger.info(`${req.method} ${req.originalUrl}`);
+  if (req.user) {
+    return res.redirect("/shop");
+  }
   res.redirect("/login");
 };
 

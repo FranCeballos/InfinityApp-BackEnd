@@ -1,14 +1,18 @@
+// Npm imports
 const express = require("express");
-const router = express.Router();
 
+// Utils imports
 const isAuth = require("../utils/is-auth.js");
 const isAdmin = require("../utils/is-admin.js");
-
 const { uploadProductImage } = require("../utils/multerConfig.js");
+const { validateAddOrEditProduct } = require("../utils/validator.js");
 
+// Controller import
 const controllerAdmin = require("../controllers/admin.js");
 
 // Routes
+const router = express.Router();
+
 router.get("/products", isAuth, isAdmin, controllerAdmin.getProducts);
 
 router.get("/add-product", isAuth, isAdmin, controllerAdmin.getAddProduct);
@@ -17,6 +21,7 @@ router.post(
   "/add-product",
   isAuth,
   uploadProductImage.single("img"),
+  validateAddOrEditProduct,
   controllerAdmin.postProduct
 );
 
@@ -31,6 +36,7 @@ router.post(
   "/edit-product/:productId",
   isAuth,
   uploadProductImage.single("img"),
+  validateAddOrEditProduct,
   controllerAdmin.postEditProduct
 );
 

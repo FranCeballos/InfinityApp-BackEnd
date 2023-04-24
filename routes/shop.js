@@ -1,11 +1,15 @@
+// Npm imports
 const express = require("express");
-const router = express.Router();
 
+// Utils imports
 const isAuth = require("../utils/is-auth.js");
 
+// Controller import
 const shopController = require("../controllers/shop.js");
 
 // Routes
+const router = express.Router();
+
 router.get("/", shopController.getHome);
 
 router.get("/shop", shopController.getProducts);

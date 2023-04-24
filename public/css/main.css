@@ -39,7 +39,9 @@ button {
   height: fit-content;
 }
 
-.card p {
+.card p,
+.card h1 {
+  color: rgb(216, 216, 216);
   margin-bottom: 10px;
 }
 

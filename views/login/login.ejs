@@ -13,22 +13,24 @@
         <input
           id="email"
           name="email"
-          class="form-input"
+          class="form-input <%= validationErrors.find(e => e.path === 'email') ? 'invalid' : '' %>"
           type="text"
           placeholder="Email"
+          value="<%= oldInput.email %>"
           required
         />
         <input
           id="password"
           name="password"
-          class="form-input"
+          class="form-input <%= validationErrors.find(e => e.path === 'password') ? 'invalid' : '' %>"
           type="password"
           placeholder="Password"
+          value="<%= oldInput.password %>"
           required
         />
-        <% if (messageError) { %>
-          <p><%= messageError %></p>
-          <% } %>
+        <% if (errorMessage.length > 0) { %>
+        <p class="form__error-text"><%= errorMessage %></p>
+        <% } %>
         <button type="submit" class="form-btn">LogIn</button>
       </form>
     </div>

@@ -13,68 +13,85 @@
         <input
           id="firstName"
           name="firstName"
-          class="form-input"
+          class="form-input <%= validationErrors.find(e => e.path === 'firstName') ? 'invalid' : '' %>"
           type="text"
           placeholder="First Name"
+          value="<%= oldInput.firstName %>"
           required
         />
         <input
           id="lastName"
           name="lastName"
-          class="form-input"
+          class="form-input <%= validationErrors.find(e => e.path === 'lastName') ? 'invalid' : '' %>"
           type="text"
           placeholder="Last Name"
+          value="<%= oldInput.lastName %>"
           required
         />
         <input
           id="email"
           name="email"
-          class="form-input"
+          class="form-input <%= validationErrors.find(e => e.path === 'email') ? 'invalid' : '' %>"
           type="email"
           placeholder="Email"
+          value="<%= oldInput.email %>"
           required
         />
         <input
           id="age"
           name="age"
-          class="form-input"
+          class="form-input <%= validationErrors.find(e => e.path === 'age') ? 'invalid' : '' %>"
           type="number"
           placeholder="Age"
+          value="<%= oldInput.age %>"
           required
         />
         <div>
           <input
             id="phoneCharacteristic"
             name="phoneCharacteristic"
-            class="form-input"
+            class="form-input <%= validationErrors.find(e => e.path === 'phoneCharacteristic') ? 'invalid' : '' %>"
             type="number"
             placeholder="Phone Characteristic"
             maxlength="2"
+            value="<%= oldInput.phoneCharacteristic %>"
             required
           />
           <input
             id="phone"
             name="phone"
-            class="form-input"
+            class="form-input <%= validationErrors.find(e => e.path === 'phone') ? 'invalid' : '' %>"
             type="number"
             placeholder="Phone number"
+            value="<%= oldInput.phone %>"
             required
           />
         </div>
         <input
           id="country"
           name="country"
-          class="form-input"
+          class="form-input <%= validationErrors.find(e => e.path === 'country') ? 'invalid' : '' %>"
           type="text"
           placeholder="Country"
+          value="<%= oldInput.country %>"
           required
         />
         <input
           id="password"
           name="password"
-          class="form-input"
-          type="text"
+          class="form-input <%= validationErrors.find(e => e.path === 'password') ? 'invalid' : '' %>"
+          type="password"
           placeholder="Password"
+          value="<%= oldInput.password %>"
+          required
+        />
+        <input
+          id="passwordConfirm"
+          name="passwordConfirm"
+          class="form-input <%= validationErrors.find(e => e.path === 'passwordConfirm') ? 'invalid' : '' %>"
+          type="password"
+          placeholder="Confirm Password"
+          value="<%= oldInput.passwordConfirm %>"
           required
         />
         <label class="font-grey-light" for="avatar">Avatar:</label>
@@ -86,9 +103,9 @@
           placeholder="Avatar URL"
           required
         />
-        <% if (messageError) { %>
-          <p><%= messageError %></p>
-          <% } %>
+        <% if (errorMessage.length > 0) { %>
+        <p class="form__error-text"><%= errorMessage %></p>
+        <% } %>
         <button class="form-btn" type="submit">Confirm SignUp</button>
       </form>
     </div>
