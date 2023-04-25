@@ -15,6 +15,7 @@ const {
   renderLogInView,
   renderNewPasswordView,
 } = require("../utils/viewRenderer.js");
+const { next500error } = require("../utils/next500error.js");
 
 // CONTROLLERS
 exports.getRegister = async (req, res, next) => {
@@ -119,7 +120,7 @@ exports.postRegister = async (req, res, next) => {
       html: `<h1>New SignUp Registered</h1>`,
     });
   } catch (err) {
-    console.log(err);
+    next500error(next, err);
   }
 };
 
@@ -133,7 +134,6 @@ exports.getRegisterSuccess = async (req, res, next) => {
 
 exports.getLogIn = async (req, res, next) => {
   logger.info(`${req.method} ${req.originalUrl}`);
-
   renderLogInView(
     res,
     200,
@@ -192,7 +192,7 @@ exports.postLogIn = async (req, res, next) => {
       errors.array()
     );
   } catch (err) {
-    console.log(err);
+    next500error(next, err);
   }
 };
 
@@ -256,8 +256,8 @@ exports.postReset = async (req, res, next) => {
           <p>Click this <a href="http://localhost:3000/reset/${token}">link</a> to continue reseting your password.</p>
           `,
       });
-    } catch (error) {
-      console.log(error);
+    } catch (err) {
+      next500error(next, err);
     }
   });
 };
@@ -340,7 +340,7 @@ exports.postNewPassword = async (req, res, next) => {
         <p>Click this <a href="http://localhost:3000/login">link</a> to log in with your new password.</p>
         `,
     });
-  } catch (error) {
-    console.log(error);
+  } catch (err) {
+    next500error(next, err);
   }
 };

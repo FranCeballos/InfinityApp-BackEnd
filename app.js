@@ -61,20 +61,6 @@ app.use(
 app.use(csrfProtection);
 
 app.use((req, res, next) => {
-  if (!req.session.user) {
-    return next();
-  }
-  User.findById(req.session.user._id)
-    .then((user) => {
-      req.user = user;
-      res.locals.avatarImg = req.user.avatar;
-      res.locals.userFirstName = req.user.firstName;
-      next();
-    })
-    .catch((err) => console.log(err));
-});
-
-app.use((req, res, next) => {
   res.locals.isAuthenticated = req.session.isLoggedIn;
   res.locals.csrfToken = req.csrfToken();
   const isAdmin = req.session.user?.email === process.env.ADMIN_EMAIL;
@@ -83,11 +69,34 @@ app.use((req, res, next) => {
   next();
 });
 
+app.use(async (req, res, next) => {
+  if (!req.session.user) {
+    return next();
+  }
+  try {
+    const user = await User.findById(req.session.user._id);
+    req.user = user;
+    res.locals.avatarImg = req.user.avatar;
+    res.locals.userFirstName = req.user.firstName;
+    next();
+  } catch (err) {
+    next(err);
+  }
+});
+
 //Routes
 app.use(routerLogIn);
 app.use("/admin", routerAdmin);
 app.use(routerShop);
 app.use(controllerErrors.getError404);
+
+app.use((error, req, res, next) => {
+  res.status(error.serverStatusCode).render("500", {
+    path: "/500",
+    pageTitle: "Server Error",
+    isAuthenticated: req.session.isLoggedIn,
+  });
+});
 
 // DB connection and Server StartUp
 const PORT = process.env.PORT || 3000;

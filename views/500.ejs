@@ -1,0 +1,12 @@
+<%- include('./partials/head.ejs', {pageTitle: pageTitle}) %>
+  <link rel="stylesheet" href="/css/error.css">
+  </head>
+
+  <body class="box">
+    <%- include('./partials/header.ejs') %>
+      <p class="error__title font-grey-light">Internal Server Error</p>
+      <p class="error__second-title font-grey-light">We're working on fixing the problem, thank you for your pacience.</p>
+      <a href="/shop"> 
+        <button class="btn-primary">Home Page</button>
+      </a>
+    <%- include("./partials/end.ejs") %>

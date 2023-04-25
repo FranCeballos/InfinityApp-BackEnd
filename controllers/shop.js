@@ -14,6 +14,7 @@ const Message = require("../models/message.js");
 // Utils imports
 const logger = require("../logger.js");
 const transporter = require("../utils/mailer.js");
+const { next500error } = require("../utils/next500error.js");
 
 // CONTROLLERS
 exports.getHome = (req, res, next) => {
@@ -34,7 +35,7 @@ exports.getProducts = async (req, res, next) => {
       path: "/products",
     });
   } catch (err) {
-    console.log(err);
+    next500error(next, err);
   }
 };
 
@@ -54,7 +55,7 @@ exports.getProductDetail = async (req, res, next) => {
       isInCart: isInCart,
     });
   } catch (err) {
-    console.log(err);
+    next500error(next, err);
   }
 };
 
@@ -69,7 +70,7 @@ exports.getCart = async (req, res, next) => {
       path: "/cart",
     });
   } catch (err) {
-    console.log(err);
+    next500error(next, err);
   }
 };
 
@@ -85,7 +86,7 @@ exports.postCart = async (req, res, next) => {
     }
     res.redirect("/cart");
   } catch (err) {
-    console.log(err);
+    next500error(next, err);
   }
 };
 
@@ -100,7 +101,7 @@ exports.postDeleteCartProduct = async (req, res, next) => {
     }
     res.redirect("/cart");
   } catch (err) {
-    console.log(err);
+    next500error(next, err);
   }
 };
 
@@ -114,7 +115,7 @@ exports.getOrders = async (req, res, next) => {
       path: "/orders",
     });
   } catch (err) {
-    console.log(err);
+    next500error(next, err);
   }
 };
 
@@ -181,7 +182,7 @@ exports.postOrder = async (req, res, next) => {
       })
       .then((message) => console.log(message.sid));
   } catch (err) {
-    console.log(err);
+    next500error(next, err);
   }
 };
 
@@ -226,7 +227,7 @@ exports.getProductsByCategory = async (req, res, next) => {
       path: "/products",
     });
   } catch (err) {
-    console.log(err);
+    next500error(next, err);
   }
 };
 
@@ -272,6 +273,6 @@ exports.getChat = async (req, res, next) => {
       });
     });
   } catch (err) {
-    console.log(err);
+    next500error(next, err);
   }
 };

@@ -16,6 +16,7 @@ const Message = require("../models/message.js");
 const logger = require("../logger.js");
 const { deleteFile } = require("../utils/file.js");
 const { renderAddOrEditProductView } = require("../utils/viewRenderer.js");
+const { next500error } = require("../utils/next500error.js");
 
 // CONTROLLERS
 exports.getProducts = async (req, res, next) => {
@@ -29,7 +30,7 @@ exports.getProducts = async (req, res, next) => {
       products: products,
     });
   } catch (err) {
-    console.log(err);
+    next500error(next, err);
   }
 };
 
@@ -103,7 +104,7 @@ exports.postProduct = async (req, res, next) => {
     await product.save();
     return res.redirect("/admin/products");
   } catch (err) {
-    console.log(err);
+    next500error(next, err);
   }
 };
 
@@ -149,7 +150,7 @@ exports.getEditProduct = async (req, res, next) => {
       });
     });
   } catch (err) {
-    console.log(err);
+    next500error(next, err);
   }
 };
 
@@ -184,7 +185,7 @@ exports.postEditProduct = async (req, res, next) => {
     await product.save();
     res.redirect("/admin/products");
   } catch (err) {
-    console.log(err);
+    next500error(next, err);
   }
 };
 
@@ -201,7 +202,7 @@ exports.postDeleteProduct = async (req, res, next) => {
     await product.deleteOne({ _id: prodId, userId: req.user._id });
     res.redirect("/admin/products");
   } catch (err) {
-    console.log(err);
+    next500error(next, err);
   }
 };
 
@@ -244,6 +245,6 @@ exports.getChat = async (req, res, next) => {
       });
     });
   } catch (err) {
-    console.log(err);
+    next500error(next, err);
   }
 };
