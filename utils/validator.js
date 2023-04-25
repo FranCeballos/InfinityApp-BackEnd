@@ -28,10 +28,6 @@ exports.validateSignUp = [
     .isNumeric()
     .notEmpty(),
   body("phone", "Enter valid Phone Number").isMobilePhone().notEmpty(),
-  body("country", "Enter valid country. At least 3 characters")
-    .isString()
-    .isLength({ min: 3 })
-    .trim(),
   body(
     "password",
     "Please enter a password with only numbers and text and at least 5 characters."

@@ -113,11 +113,21 @@ exports.postRegister = async (req, res, next) => {
     await newUser.save();
 
     res.redirect("/register-success");
-    await transporter.sendMail({
+    transporter.sendMail({
       to: process.env.ADMIN_EMAIL,
       from: "shop.company.proyect@gmail.com",
       subject: "New SignUp Registered on Movie Proyect",
       html: `<h1>New SignUp Registered</h1>`,
+    });
+    transporter.sendMail({
+      to: newUser.email,
+      from: "shop.company.proyect@gmail.com",
+      subject: "Welcome to Infinity App",
+      html: `
+        <h1>Welcome to Infinity App</h1>
+        <p>Your account has been successfully created</p>
+        <p>Click this <a href="http://localhost:3000/login">link</a> to log in.</p>
+        `,
     });
   } catch (err) {
     next500error(next, err);
