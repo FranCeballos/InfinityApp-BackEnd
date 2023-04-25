@@ -45,8 +45,27 @@ exports.renderSignUpView = (
   });
 };
 
-// Add / Edit Product
+exports.renderNewPasswordView = (
+  res,
+  statusCode,
+  userId,
+  passwordToken,
+  oldInputs,
+  errorMessage,
+  validationErrors
+) => {
+  return res.status(statusCode).render("login/new-password", {
+    path: "/login",
+    pageTitle: "New Password",
+    userId: userId,
+    passwordToken: passwordToken,
+    oldInputs: oldInputs,
+    errorMessage: errorMessage,
+    validationErrors: validationErrors,
+  });
+};
 
+// Add / Edit Product
 exports.renderAddOrEditProductView = (
   res,
   statusCode,

@@ -7,8 +7,8 @@
   <body class="box">
     <%- include('../partials/header.ejs') %>
     <div class="login-box fadein">
-      <p class="login-title font-grey-light">Welcome</p>
-      <form class="login-box" action="/login" method="post">
+      <p class="login-title font-grey-light">Reset Password</p>
+      <form class="login-box" action="/reset" method="post">
         <input type="hidden" name="_csrf" value="<%= csrfToken %>">
         <input
           id="email"
@@ -19,20 +19,10 @@
           value="<%= oldInput.email %>"
           required
         />
-        <input
-          id="password"
-          name="password"
-          class="form-input <%= validationErrors.find(e => e.path === 'password') ? 'invalid' : '' %>"
-          type="password"
-          placeholder="Password"
-          value="<%= oldInput.password %>"
-          required
-        />
         <% if (errorMessage.length > 0) { %>
         <p class="form__error-text"><%= errorMessage %></p>
         <% } %>
-        <button type="submit" class="form-btn">LogIn</button>
+        <button type="submit" class="form-btn">Send email for reset</button>
       </form>
-      <a href="/reset" class="link__reset-password font-grey-light">Forgot your password?</a>
     </div>
     <%- include("../partials/end.ejs") %>

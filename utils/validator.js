@@ -43,7 +43,7 @@ exports.validateSignUp = [
     .trim()
     .custom((value, { req }) => {
       if (value !== req.body.password) {
-        throw new Error("Passwords have to match!");
+        throw new Error("Passwords have to match.");
       }
       return true;
     }),
@@ -58,6 +58,21 @@ exports.validateLogIn = [
     .isLength({ min: 5 })
     .isAlphanumeric()
     .trim(),
+];
+
+exports.validateNewPassword = [
+  body("password", "Password has to be valid.")
+    .isLength({ min: 5 })
+    .isAlphanumeric()
+    .trim(),
+  body("passwordConfirm")
+    .trim()
+    .custom((value, { req }) => {
+      if (value !== req.body.password) {
+        throw new Error("Passwords have to match.");
+      }
+      return true;
+    }),
 ];
 
 exports.validateAddOrEditProduct = [

@@ -1,5 +1,5 @@
 // Core imports
-
+const crypto = require("crypto");
 // Npm imports
 const bcrypt = require("bcryptjs");
 const { validationResult } = require("express-validator");
@@ -13,6 +13,7 @@ const transporter = require("../utils/mailer.js");
 const {
   renderSignUpView,
   renderLogInView,
+  renderNewPasswordView,
 } = require("../utils/viewRenderer.js");
 
 // CONTROLLERS
@@ -199,4 +200,147 @@ exports.postLogout = async (req, res, next) => {
   logger.info(`${req.method} ${req.originalUrl}`);
   req.session.destroy();
   res.redirect("/shop");
+};
+
+exports.getReset = async (req, res, next) => {
+  logger.info(`${req.method} ${req.originalUrl}`);
+  res.render("login/reset", {
+    path: "/reset",
+    pageTitle: "Reset Password",
+    oldInput: {
+      email: "",
+    },
+    errorMessage: "",
+    validationErrors: [],
+  });
+};
+
+exports.postReset = async (req, res, next) => {
+  logger.info(`${req.method} ${req.originalUrl}`);
+  crypto.randomBytes(32, async (err, buffer) => {
+    try {
+      if (err) {
+        console.log(err);
+        return res.redirect("/reset");
+      }
+      const token = buffer.toString("hex");
+      const emailInput = req.body.email;
+      const user = await User.findOne({ email: emailInput });
+      if (!user) {
+        return res.render("login/reset", {
+          path: "/reset",
+          pageTitle: "Reset Password",
+          oldInput: {
+            email: emailInput,
+          },
+          errorMessage: `No user registered with email "${emailInput}".`,
+          validationErrors: [],
+        });
+      }
+      user.resetToken = token;
+      user.resetTokenExpiration = Date.now() + 3600000;
+      await user.save();
+      renderLogInView(
+        res,
+        202,
+        { email: "", password: "" },
+        "Email sent for reseting password",
+        []
+      );
+      transporter.sendMail({
+        to: emailInput,
+        from: "shop.company.proyect@gmail.com",
+        subject: "Password Reset",
+        html: `
+          <h1>Reset your Infinity Password</h1>
+          <p>Click this <a href="http://localhost:3000/reset/${token}">link</a> to continue reseting your password.</p>
+          `,
+      });
+    } catch (error) {
+      console.log(error);
+    }
+  });
+};
+
+exports.getNewPassword = async (req, res, next) => {
+  logger.info(`${req.method} ${req.originalUrl}`);
+  const token = req.params.token;
+  const userWithToken = await User.findOne({
+    resetToken: token,
+    resetTokenExpiration: { $gt: Date.now() },
+  });
+
+  if (!userWithToken) {
+    return res.render("login/reset", {
+      path: "/reset",
+      pageTitle: "Reset Password",
+      oldInput: {
+        email: "",
+      },
+      errorMessage: "Token not valid or expired.",
+      validationErrors: [],
+    });
+  }
+
+  renderNewPasswordView(
+    res,
+    200,
+    userWithToken._id.toString(),
+    token,
+    { password: "", passwordConfirm: "" },
+    "",
+    []
+  );
+};
+
+exports.postNewPassword = async (req, res, next) => {
+  const newPassword = req.body.password;
+  const newPasswordConfirm = req.body.passwordConfirm;
+  const userId = req.body.userId;
+  const token = req.body.passwordToken;
+
+  try {
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+      return renderNewPasswordView(
+        res,
+        422,
+        userId,
+        token,
+        { password: newPassword, passwordConfirm: newPasswordConfirm },
+        errors.array()[0].msg,
+        errors.array()
+      );
+    }
+
+    const user = await User.findOne({
+      resetToken: token,
+      resetTokenExpiration: { $gt: Date.now() },
+      _id: userId,
+    });
+    const hashedPassword = await bcrypt.hash(newPassword, 12);
+
+    user.password = hashedPassword;
+    user.resetToken = undefined;
+    user.resetTokenExpiration = undefined;
+    await user.save();
+    renderLogInView(
+      res,
+      200,
+      { email: "", password: "" },
+      "Password updated.",
+      []
+    );
+    transporter.sendMail({
+      to: user.email,
+      from: "shop.company.proyect@gmail.com",
+      subject: "Password Updated",
+      html: `
+        <h1>Your Infinity Password has been updated successfully</h1>
+        <p>Click this <a href="http://localhost:3000/login">link</a> to log in with your new password.</p>
+        `,
+    });
+  } catch (error) {
+    console.log(error);
+  }
 };
