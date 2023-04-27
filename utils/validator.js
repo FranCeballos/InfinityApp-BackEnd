@@ -2,7 +2,7 @@ const { body, check } = require("express-validator");
 const User = require("../models/user.js");
 
 exports.validateSignUp = [
-  body("firstName", "First Name must be have a minimum of 3 characters")
+  body("firstName", "First Name must have a minimum of 3 characters")
     .isString()
     .isLength({ min: 3 })
     .trim(),

@@ -1,0 +1,81 @@
+.footer__container {
+  width: 1200px;
+  height: 100px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  position: relative;
+  margin-top: 80px;
+}
+
+.footer__github-section {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+  height: 30%;
+  flex: 1;
+}
+
+.footer__github-link {
+  text-decoration: none;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  width: fit-content;
+  height: 100%;
+}
+
+.footer__github-logo {
+  object-fit: contain;
+  width: auto;
+  height: 100%;
+  z-index: 2;
+  transition: 0.5s ease-in;
+}
+
+.footer__logo-section {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  height: 50%;
+  flex: 1;
+}
+
+.footer__logo-link {
+  text-decoration: none;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  width: fit-content;
+  height: 100%;
+}
+
+.footer__logo {
+  object-fit: contain;
+  width: auto;
+  height: 100%;
+  z-index: 2;
+  transition: 0.5s ease-in;
+}
+
+.footer__logo-name {
+  font-family: "Clash Display", sans-serif;
+}
+
+.footer__section {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+  align-items: center;
+  height: 30%;
+  flex: 1;
+}
+
+.footer__dev-name {
+  font-size: 0.9rem;
+}

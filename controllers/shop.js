@@ -43,8 +43,8 @@ exports.getProductDetail = async (req, res, next) => {
   logger.info(`${req.method} ${req.originalUrl}`);
   const prodId = req.params.productId;
   try {
-    const isOwned = req.user.isOwnedById(prodId);
-    const isInCart = req.user.isInCartById(prodId);
+    const isOwned = req.user?.isOwnedById(prodId);
+    const isInCart = req.user?.isInCartById(prodId);
     const product = await Product.findById(prodId);
     res.render("shop/product-detail", {
       pageTitle: product.name,
@@ -146,7 +146,7 @@ exports.postOrder = async (req, res, next) => {
 
     const productListMail = orderProducts
       .map((i) => {
-        return `<li>${i.product.name} (${i.quantity})</li>`;
+        return `<li>${i.product.name}</li>`;
       })
       .join("");
     const html = `<h1>New order from:</h1>

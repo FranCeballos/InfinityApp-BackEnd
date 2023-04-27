@@ -1,3 +1,9 @@
+input {
+  width: auto;
+  padding: 20px 20px;
+  text-align: right;
+}
+
 input.invalid {
   border: 1px solid red;
 }
@@ -16,10 +22,22 @@ input.invalid {
   margin-bottom: 40px;
 }
 
+.form-row {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  width: 400px;
+  overflow: scroll;
+  flex-wrap: nowrap;
+  gap: 20px;
+}
+
 .form-input {
+  width: 100%;
   height: 25px;
   border: 0px;
-  border-radius: 20px;
+  border-radius: 5px;
   background-color: rgba(13, 13, 16, 0);
   color: rgb(216, 216, 216);
   box-shadow: inset 0 0 10px #000000;
@@ -30,18 +48,29 @@ input.invalid {
 }
 
 .form-btn {
+  width: 400px;
   color: white;
   background: #2b2f77;
   padding: 10px 20px;
   border: 0px;
-  border-radius: 20px;
+  border-radius: 5px;
   cursor: pointer;
 }
 
 .form-select {
-  padding: 5px 10px;
+  width: 250px;
+  padding: 10px 10px;
   border: 0px;
-  border-radius: 20px;
+  border-radius: 5px;
+  margin-bottom: 10px;
+}
+
+.form-select-short {
+  width: 100px;
+  padding: 10px 10px;
+  border: 0px;
+  border-radius: 5px;
+  margin-bottom: 10px;
 }
 
 .form-fieldset-duration {

@@ -91,6 +91,7 @@ app.use(routerShop);
 app.use(controllerErrors.getError404);
 
 app.use((error, req, res, next) => {
+  console.log(error);
   res.status(error.serverStatusCode).render("500", {
     path: "/500",
     pageTitle: "Server Error",

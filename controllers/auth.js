@@ -15,6 +15,7 @@ const {
   renderLogInView,
   renderNewPasswordView,
 } = require("../utils/viewRenderer.js");
+const { deleteFile } = require("../utils/file.js");
 const { next500error } = require("../utils/next500error.js");
 
 // CONTROLLERS
@@ -54,22 +55,25 @@ exports.postRegister = async (req, res, next) => {
   const avatarImg = req.file;
   const avatarImgPath = avatarImg?.path;
 
+  const oldInput = {
+    firstName,
+    lastName,
+    email,
+    age,
+    phoneCharacteristic,
+    phone,
+    country,
+    password,
+    passwordConfirm,
+  };
+
   const errors = validationResult(req);
   if (!errors.isEmpty()) {
+    deleteFile(avatarImgPath);
     return renderSignUpView(
       res,
       422,
-      {
-        firstName,
-        lastName,
-        email,
-        age,
-        phoneCharacteristic,
-        phone,
-        country,
-        password,
-        passwordConfirm,
-      },
+      oldInput,
       errors.array()[0].msg,
       errors.array()
     );

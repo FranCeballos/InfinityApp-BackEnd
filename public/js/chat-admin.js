@@ -13,15 +13,15 @@ socket.on("messages:read", (messages) => {
         <p class="msg__question-text-admin font-grey-light">${msg.question}</p>
         <div class="msg__box">
           <input type="hidden" class="questionId" name="questionId" value="${msg._id}">
-          <div>
+          <div class="form__chat-container">
             <input
               name="answer"
-              class="answer-input form-input"
+              class="answer-input form-input-chat"
               type="text"
               placeholder="Answer"
               required
             />
-            <button class="form-btn chat__btn">
+            <button class="form-btn-chat chat__btn">
               Answer
             </button>
         </div>

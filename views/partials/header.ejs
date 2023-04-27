@@ -19,17 +19,11 @@
             <p>Admin Products</p>
             <span class="<%- path === '/admin/products' ? 'dot-active fadein-expand' : 'dot-hidden' %>"></span>
           </a>
-          <a class="center" href="/admin/chat">
-            <p>Chat</p>
-            <span class="<%- path === '/chat' ? 'dot-active fadein-expand' : 'dot-hidden' %>"></span>
-          </a>
-        <% } else { %>
-          <a class="center" href="/chat">
-            <p>Chat</p>
-            <span class="<%- path === '/chat' ? 'dot-active fadein-expand' : 'dot-hidden' %>"></span>
-          </a>
         <% } %>
         <% } %>
+      </div>
+      <div class="nav__logo-container">
+        <img class="nav__logo" src="/images/infinityLogoSquareWhite.png" alt="Infinity App Logo">
       </div>
       <% if (isAuthenticated) { %>
         <form class="right-nav__box" action="/logout" method="post">
@@ -54,3 +48,18 @@
         <% } %>
     </nav>
 </header>
+<% if (isAuthenticated) { %>   
+<% if (isAdmin) { %>
+<div class="chat__icon-container">
+  <a class="chat__icon-link" href="/admin/chat">
+    <p class="chat__icon-text font-grey-light">💬</p>
+  </a>
+</div>
+<% } else { %>
+<div class="chat__icon-container">
+  <a class="chat__icon-link" href="/chat">
+    <p class="chat__icon-text font-grey-light">💬</p>
+  </a>
+</div>
+<% } %>
+<% } %>

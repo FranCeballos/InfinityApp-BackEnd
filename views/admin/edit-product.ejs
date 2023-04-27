@@ -16,21 +16,20 @@
           <input type="hidden" name="userId" value="<%= product.userId %>">
         <% } %>
         <!-- Name -->
-        <div>
-          <label for="name" class="font-grey-light">Name:</label>
+        <div class="form-row">
           <input
             id="name"
             name="name"
             class="form-input"
             type="text"
+            placeholder="Name"
             value="<% if (editMode) { %><%= product.name %><% } else { %><%= oldInputs.name %><% } %>"
             required
           />
         </div>
 
         <!-- Rating -->
-        <div>
-          <label for="rating" class="font-grey-light">Rating:</label>
+        <div class="form-row">
           <select
             id="rating"
             name="rating"
@@ -39,7 +38,7 @@
             value="<% if (editMode) { %><%= product.rating %><% } else { %><%= oldInputs.rating %><% } %>"
             required
           >
-            <option value="" selected>Select rating</option>
+            <option value="" selected>Rating</option>
             <option value="G">G</option>
             <option value="PG">PG</option>
             <option value="PG-13">PG-13</option>
@@ -49,37 +48,34 @@
         </div>
 
         <!-- Time Duration -->
-        <div>
+        <div class="form-row">
           <fieldset class="form-fieldset-duration">
             <legend class="font-grey-light">Duration</legend>
-            <label for="hours" class="font-grey-light">Hours:</label>
             <select
               id="hours"
               name="hours"
-              class="form-select"
+              class="form-select-short"
               type="number"
               value="<% if (editMode) { %><%= %><% } else { %><%= oldInputs.hours %><% } %>"
               required 
             >
-              <option selected value="">Select hour duration</option>
+              <option selected value="">Hours</option>
             </select>
-            <label for="minutes" class="font-grey-light">Minutes:</label>
             <select 
               id="minutes"
               name="minutes"
-              class="form-select"
+              class="form-select-short"
               type="number"
               value="<% if (editMode) { %><%= %><% } else { %><%= oldInputs.minutes %><% } %>"
               required
             >
-            <option value="">Select minute duration</option>
+            <option value="">Minutes</option>
           </select>
           </fieldset>
         </div>
 
-        <!-- Year of Release -->
-        <div>
-          <label for="year" class="font-grey-light">Year of Release:</label>
+        <!-- Year of Release & Streming Service -->
+        <div class="form-row">
           <select
             id="year"
             name="year"
@@ -88,13 +84,8 @@
             value="<% if (editMode) { %><%= product.year %><% } else { %><%= oldInputs.year %><% } %>"
             required
           >
-            <option value="" selected>Select year of release</option>
+            <option value="" selected>Year of release</option>
           </select>
-        </div>
-
-        <!-- Streaming Service -->
-        <div>
-          <label for="strService" class="font-grey-light">Streaming Service:</label>
           <select
             id="strService"
             name="strService"
@@ -113,13 +104,13 @@
         </div>
 
         <!-- Price -->
-        <div>
-          <label for="price" class="font-grey-light">Price:</label>
+        <div class="form-row">
           <input
             id="price"
             name="price"
             class="form-input"
             type="number"
+            placeholder="Price"
             value="<% if (editMode) { %><%= product.price %><% } else { %><%= oldInputs.price %><% } %>"
             required
           />
@@ -146,6 +137,7 @@
         <button type="submit" class="form-btn"><%= editMode ? "Edit Product" : "Add Product" %></button>
       </form>
     </div>
+    <%- include('../partials/footer.ejs') %>
     <script src="/socket.io/socket.io.js"></script>
     <script type="module" src="/js/add-product.js"></script>
   </body>

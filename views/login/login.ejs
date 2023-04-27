@@ -7,7 +7,7 @@
   <body class="box">
     <%- include('../partials/header.ejs') %>
     <div class="login-box fadein">
-      <p class="login-title font-grey-light">Welcome</p>
+      <p class="login-title font-grey-light">WELCOME TO INFINITY</p>
       <form class="login-box" action="/login" method="post">
         <input type="hidden" name="_csrf" value="<%= csrfToken %>">
         <input
@@ -35,4 +35,5 @@
       </form>
       <a href="/reset" class="link__reset-password font-grey-light">Forgot your password?</a>
     </div>
+    <%- include('../partials/footer.ejs') %>
     <%- include("../partials/end.ejs") %>

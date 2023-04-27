@@ -14,22 +14,23 @@
       <form class="form-box chat-form">
         <input type="hidden" name="_csrf" value="<%= csrfToken %>">
         <input type="hidden" name="userId" value="<%= userId %>">
-        <div class="">
+        <div class="form__chat-container">
           <input
             id="question"
             name="question"
-            class="form-input"
+            class="form-input-chat"
             type="text"
             placeholder="Question"
             required
           />
-          <button type="submit" class="form-btn chat__btn">
+          <button type="submit" class="form-btn-chat chat__btn">
             Ask >
           </button>
         </div>
       </form>
     </div>
     </main>
+    <%- include('../partials/footer.ejs') %>
 
     <script src="/socket.io/socket.io.js"></script>
     <script type="module" src="/js/chat.js"></script>
