@@ -9,8 +9,8 @@ const args = yargs.default({
 const { validationResult } = require("express-validator");
 
 //Model imports
-const Product = require("../models/product.js");
-const Message = require("../models/message.js");
+const Product = require("../models/productModel.js");
+const Message = require("../models/messageModel.js");
 
 // Utils imports
 const logger = require("../logger.js");

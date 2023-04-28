@@ -5,7 +5,7 @@ const bcrypt = require("bcryptjs");
 const { validationResult } = require("express-validator");
 
 // Model imports
-const User = require("../models/user.js");
+const User = require("../models/userModel.js");
 
 // Utils imports
 const logger = require("../logger.js");

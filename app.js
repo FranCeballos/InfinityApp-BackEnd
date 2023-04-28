@@ -15,7 +15,7 @@ const flash = require("connect-flash");
 const helmet = require("helmet");
 
 // Models imports
-const User = require("./models/user.js");
+const User = require("./models/userModel.js");
 
 // Utils imports
 const logger = require("./logger.js");

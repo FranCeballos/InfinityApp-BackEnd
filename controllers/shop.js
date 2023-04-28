@@ -7,9 +7,9 @@ const client = require("twilio")(
 );
 
 // Models imports
-const Product = require("../models/product");
-const Order = require("../models/order.js");
-const Message = require("../models/message.js");
+const Product = require("../models/productModel");
+const Order = require("../models/orderModel.js");
+const Message = require("../models/messageModel.js");
 
 // Utils imports
 const logger = require("../logger.js");
