@@ -13,15 +13,12 @@ chatForm.addEventListener("submit", (e) => {
     const messageObj = {
       question: messageInput.value,
     };
-
-    console.log(messageObj);
     socket.emit("messages:create", messageObj);
     messageInput.value = "";
   }
 });
 
 socket.on("messages:read", (messages) => {
-  console.log(messages);
   const htmlMessages = messages.map((msg) => {
     if (!msg.isAnswered) {
       return `

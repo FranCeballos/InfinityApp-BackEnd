@@ -236,7 +236,6 @@ exports.getChat = async (req, res, next) => {
         question.isAnswered = true;
         question.answeredAt = Date.now();
         await question.save();
-        console.log(data);
         io.emit("messages:read", await Message.find());
       });
 

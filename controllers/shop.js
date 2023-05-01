@@ -157,7 +157,13 @@ exports.postOrder = async (req, res, next) => {
     await transporter.sendMail({
       to: process.env.ADMIN_EMAIL,
       from: "shop.company.proyect@gmail.com",
-      subject: "New order on Movie Proyect",
+      subject: "New order in Infinity Entertaiment",
+      html: html,
+    });
+    await transporter.sendMail({
+      to: req.user.email,
+      from: "shop.company.proyect@gmail.com",
+      subject: "Order confirmed in Infinity Entertaiment",
       html: html,
     });
 
@@ -249,8 +255,6 @@ exports.getChat = async (req, res, next) => {
         await Message.find({ userId: req.user._id }).limit(50)
       );
       socket.on("messages:create", async (data) => {
-        console.log(data);
-
         const newMessage = new Message({
           userId: req.user._id,
           name: req.user.firstName,

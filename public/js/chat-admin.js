@@ -4,7 +4,6 @@ const socket = io();
 const messagesBox = document.querySelector(".chat__msgs-box");
 
 socket.on("messages:read", (messages) => {
-  console.log(messages);
   const htmlMessages = messages.map((msg) => {
     if (!msg.isAnswered) {
       return `
@@ -45,9 +44,7 @@ socket.on("messages:read", (messages) => {
 const observer = new MutationObserver((mutationsList, observer) => {
   mutationsList.forEach((mutation) => {
     if (mutation.type === "childList") {
-      console.log("A Child Node was added or removed");
       const sendButtons = document.getElementsByClassName("chat__btn");
-      console.log([...sendButtons]);
 
       [...sendButtons].forEach((button) => {
         button.addEventListener("click", (e) => {
@@ -55,14 +52,11 @@ const observer = new MutationObserver((mutationsList, observer) => {
           const answerInput = parentElement.querySelector(".answer-input");
           const questionIdInput = parentElement.querySelector(".questionId");
 
-          console.log("Hello");
-
           if (answerInput.value) {
             const messageObj = {
               questionId: questionIdInput.value,
               answer: answerInput.value,
             };
-            console.log(messageObj);
             socket.emit("messages:answer", messageObj);
             answerInput.value = "";
           }
