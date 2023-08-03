@@ -550,3 +550,9 @@
 {"level":30,"time":1691102788217,"pid":69448,"hostname":"Franciscos-MacBook-Pro.local","msg":"GET /cart"}
 {"level":30,"time":1691102790771,"pid":69448,"hostname":"Franciscos-MacBook-Pro.local","msg":"GET /orders"}
 {"level":30,"time":1691102792631,"pid":69448,"hostname":"Franciscos-MacBook-Pro.local","msg":"GET /admin/products"}
+{"level":30,"time":1691103264253,"pid":69448,"hostname":"Franciscos-MacBook-Pro.local","msg":"GET /"}
+{"level":30,"time":1691103264344,"pid":69448,"hostname":"Franciscos-MacBook-Pro.local","msg":"GET /login"}
+{"level":30,"time":1691103483733,"pid":69448,"hostname":"Franciscos-MacBook-Pro.local","msg":"GET /"}
+{"level":30,"time":1691103483820,"pid":69448,"hostname":"Franciscos-MacBook-Pro.local","msg":"GET /login"}
+{"level":30,"time":1691103485517,"pid":69448,"hostname":"Franciscos-MacBook-Pro.local","msg":"GET /"}
+{"level":30,"time":1691103485592,"pid":69448,"hostname":"Franciscos-MacBook-Pro.local","msg":"GET /login"}

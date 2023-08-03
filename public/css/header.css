@@ -3,6 +3,7 @@ header {
   height: 80px;
   background-color: #1b1c1e75;
   backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
   display: flex;
   flex-direction: row;
   justify-content: center;
