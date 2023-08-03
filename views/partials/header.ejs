@@ -1,6 +1,6 @@
 <header>
     <nav>
-      <div>
+      <div class="nav__links">
         <a class="center" href="/shop">
           <p>Shop</p>
           <span class="<%- path === '/products' ? 'dot-active fadein-expand' : 'dot-hidden' %>"></span>
@@ -35,7 +35,7 @@
         <button class="btn-logout" type="submit">Logout</button>
       </form>
       <% } else { %>
-        <div>
+        <div class="auth__links">
           <a class="center" href="/login">
             <p class="login-link">Login</p>
              <span class="<%- path === '/login' ? 'dot-active fadein-expand' : 'dot-hidden' %>"></span>

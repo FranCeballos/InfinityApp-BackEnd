@@ -3,16 +3,17 @@
 }
 
 .table-items {
-  width: auto;
+  width: 100%;
   display: flex;
   flex-direction: column;
   justify-content: center;
-  align-items: flex-end;
+  align-items: center;
   padding: 10px;
   align-self: center;
 }
 
 .table-row {
+  width: 100%;
   display: flex;
   flex-direction: row;
   justify-content: flex-end;
@@ -32,13 +33,14 @@
   margin-left: auto;
   margin-right: auto;
   justify-self: flex-start;
+  border-radius: 10px;
+  overflow: hidden;
 }
 
 .table-img {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  border-radius: 20px;
 }
 
 .btn-delete {
@@ -103,4 +105,24 @@
 .chat-input {
   width: 70%;
   height: 30px;
+}
+
+@media screen and (max-width: 425px) {
+  .table-items {
+    width: 90%;
+  }
+
+  .table-row {
+    gap: 30px;
+  }
+
+  .table-img-box {
+    width: 50px;
+    height: 70px;
+  }
+
+  .table-name {
+    font-size: 0.7rem;
+    text-align: end;
+  }
 }

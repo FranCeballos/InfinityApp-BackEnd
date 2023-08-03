@@ -32,6 +32,7 @@ nav div {
   align-items: center;
   gap: 30px;
   position: relative;
+  flex: 1;
 }
 
 nav div a,
@@ -62,6 +63,7 @@ nav a p {
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  text-align: center;
   transform: translateY(4px);
 }
 
@@ -82,12 +84,13 @@ nav a p {
 }
 
 .nav__logo-container {
-  width: fit-content;
-  height: 100%;
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
+  height: 60px;
+  width: auto;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  flex: 0;
 }
 
 .nav__logo {
@@ -116,15 +119,24 @@ nav a p {
 .right-nav__box {
   display: flex;
   flex-direction: row;
-  justify-content: center;
+  justify-content: flex-end;
   align-items: center;
   gap: 25px;
+  flex: 1;
+}
+
+.auth__links {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+  align-items: center;
 }
 
 .avatar__box {
   width: 30px;
   height: 30px;
   border-radius: 50%;
+  flex: 0 0 30px;
 }
 
 .avatar {
@@ -138,6 +150,7 @@ nav a p {
   position: fixed;
   background-color: #1b1c1e75;
   backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
   box-shadow: 0px 0px 5px rgb(0, 0, 0);
   padding: 7px 14px;
   border: 1px solid rgb(0, 127, 178);
@@ -149,4 +162,37 @@ nav a p {
 
 .chat__icon-link {
   text-decoration: none;
+}
+
+@media screen and (max-width: 425px) {
+  header {
+    height: 150px;
+  }
+  nav {
+    gap: 0px;
+    height: 100%;
+    flex-direction: column;
+  }
+  .nav__links {
+    order: 3;
+  }
+  .nav__logo-container {
+    height: 50px;
+    order: 1;
+  }
+  .right-nav__box {
+    order: 2;
+  }
+  .auth__links {
+    order: 2;
+  }
+  .avatar__name {
+    flex: 1;
+  }
+  .avatar__box {
+    flex: 0;
+  }
+  .btn-logout {
+    flex: 1;
+  }
 }

@@ -9,6 +9,8 @@ input.invalid {
 }
 
 .form-box {
+  width: 100%;
+  max-width: 300px;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -23,11 +25,12 @@ input.invalid {
 }
 
 .form-row {
+  width: 100%;
+  max-width: 400px;
   display: flex;
   flex-direction: row;
   justify-content: center;
   align-items: center;
-  width: 400px;
   overflow: scroll;
   flex-wrap: nowrap;
   gap: 20px;
@@ -48,7 +51,8 @@ input.invalid {
 }
 
 .form-btn {
-  width: 400px;
+  width: 100%;
+  max-width: 300px;
   color: white;
   background: #2b2f77;
   padding: 10px 20px;
@@ -58,7 +62,8 @@ input.invalid {
 }
 
 .form-select {
-  width: 250px;
+  width: 100%;
+  max-width: 200px;
   padding: 10px 10px;
   border: 0px;
   border-radius: 5px;
@@ -66,7 +71,8 @@ input.invalid {
 }
 
 .form-select-short {
-  width: 100px;
+  width: 100%;
+  max-width: 100px;
   padding: 10px 10px;
   border: 0px;
   border-radius: 5px;
@@ -74,6 +80,11 @@ input.invalid {
 }
 
 .form-fieldset-duration {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+  align-items: center;
+  width: 100%;
   padding: 20px;
   border-radius: 20px;
 }

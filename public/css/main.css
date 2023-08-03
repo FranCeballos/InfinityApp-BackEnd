@@ -96,3 +96,16 @@ button {
 .font-w600 {
   font-weight: 600;
 }
+
+@media screen and (max-width: 425px) {
+  body {
+    margin-top: 150px;
+  }
+  .box {
+    padding: 25px 0 0 0;
+  }
+
+  .btn-primary {
+    font-size: 1rem;
+  }
+}

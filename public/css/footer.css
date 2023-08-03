@@ -1,5 +1,6 @@
 .footer__container {
-  width: 1200px;
+  width: 100%;
+  max-width: 1200px;
   height: 100px;
   display: flex;
   flex-direction: row;
@@ -37,12 +38,13 @@
 }
 
 .footer__logo-section {
+  width: 100%;
+  flex: 1 0 0;
   display: flex;
   flex-direction: row;
   justify-content: center;
   align-items: center;
   height: 50%;
-  flex: 1;
 }
 
 .footer__logo-link {
@@ -68,14 +70,50 @@
 }
 
 .footer__section {
+  width: 100%;
+  flex: 1;
   display: flex;
   flex-direction: row;
   justify-content: flex-end;
   align-items: center;
   height: 30%;
-  flex: 1;
 }
 
 .footer__dev-name {
   font-size: 0.9rem;
+}
+
+@media screen and (max-width: 768px) {
+  .footer__container {
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 40vh;
+    padding: 20px;
+    gap: 15px;
+  }
+
+  .footer__github-section {
+    order: 3;
+    flex: 0;
+  }
+
+  .footer__github-link {
+    height: 30px;
+  }
+
+  .footer__logo-section {
+    order: 1;
+    flex: 0;
+  }
+
+  .footer__logo-link {
+    height: 50px;
+  }
+
+  .footer__section {
+    justify-content: center;
+    order: 2;
+    flex: 0;
+  }
 }
