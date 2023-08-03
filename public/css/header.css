@@ -182,18 +182,21 @@ nav a p {
     order: 1;
   }
   .right-nav__box {
+    width: 100%;
     order: 2;
   }
   .auth__links {
     order: 2;
   }
   .avatar__name {
+    text-align: end;
     flex: 1;
   }
   .avatar__box {
-    flex: 0;
+    flex: 0 0 30px;
   }
   .btn-logout {
+    text-align: start;
     flex: 1;
   }
 }
